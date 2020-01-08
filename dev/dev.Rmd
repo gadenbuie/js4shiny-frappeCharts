@@ -70,4 +70,23 @@ usethis::use_build_ignore("package-lock.json")
 usethis::use_git_ignore("node_modules")
 ```
 
+## Scaffold the HTML widget
 
+```{r htmlwidgets-scaffold}
+htmlwidgets::scaffoldWidget("frappeChart")
+```
+
+This adds files in `inst/htmlwidgets`
+
+```
+inst
+└── htmlwidgets
+    ├── frappeChart.js    #<< R <-> JS code
+    └── frappeChart.yaml  #<< list of dependencies
+```
+
+and creates a file `R/frappeChart.R` with the functions
+
+- `frappeChart()`
+- `frappeChartOutput()` (for shiny)
+- `renderFrappeChart()` (for shiny)
