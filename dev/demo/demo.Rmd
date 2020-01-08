@@ -1,5 +1,5 @@
 ---
-output: js4shiny::html_document_plain
+output: js4shiny::html_document_js
 ---
 
 ```{r htmldeps, echo=FALSE}
@@ -16,6 +16,27 @@ tagList(
     all_files = TRUE
   )
 )
+```
+
+```{r data}
+data <- list(
+  labels = c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"),
+  datasets = list(
+    list(name = "R", values = c(18, 40, 30, 35, 8, 52, 17, -4)),
+    list(name = "Python", values = c(30, 50, -10, 15, 18, 32, 27, 14))
+  )
+)
+
+tags$script(
+  id = "data",
+  type = "application/json",
+  htmlwidgets:::toJSON(data)
+)
+```
+
+```{js}
+let rData = document.getElementById('data')
+rData.textContent
 ```
 
 ```{js}

@@ -195,3 +195,40 @@ const data = {
     ]
 }
 ```
+
+Then re-create this data in an R chunk:
+
+```{r data-in-r}
+data <- list(
+  labels = c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"),
+  datasets = list(
+    list(name = "R", values = c(18, 40, 30, 35, 8, 52, 17, -4)),
+    list(name = "Python", values = c(30, 50, -10, 15, 18, 32, 27, 14))
+  )
+)
+```
+
+To get the data out of R and make it available in the document,
+`htmlwidgets` embeds the data in a `<script type="application/json">...</script>`
+element in the page.
+Embed the data from the R chunk in a `<script>` tag with an ID 
+so that we can find it later.
+
+```{r embed-r-data-in-script}
+tags$script(
+  id = "data",
+  type = "application/json",
+  htmlwidgets:::toJSON(data)
+)
+```
+
+Change to `js4shiny::html_document_js()` so that we can see the `console.log()`
+from JavaScript just like R code.
+And then find the `<script>` tag and get it's `.textContent`.
+
+```{js find-r-data-script}
+let rData = document.getElementById('data')
+rData.textContent
+```
+
+Use `JSON.parse()` to turn the data into a JS object.
