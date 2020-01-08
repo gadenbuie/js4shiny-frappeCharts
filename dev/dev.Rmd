@@ -231,4 +231,18 @@ let rData = document.getElementById('data')
 rData.textContent
 ```
 
-Use `JSON.parse()` to turn the data into a JS object.
+Use `JSON.parse()` to turn the data into a JS object
+and replace the data used in the chart.
+
+```{js find-r-data-script}
+let rData = document.getElementById('data')
+rData = JSON.parse(rData.textContent)
+```
+
+Switch between `data` and `rData` and it should be the same!
+
+Change the values of the data in the R side to be random
+so that each re-run gives a new plot.
+
+Delete the `data` in the JS side.
+
