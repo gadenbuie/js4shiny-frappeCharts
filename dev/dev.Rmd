@@ -1,0 +1,16 @@
+Create a package for this HTML widget.
+We're not going to publish this, so you can call it whatever you want
+
+```{r create-package}
+usethis::create_package("frappeCharts")
+```
+
+Add a dev script for notes
+
+```{r dev}
+dir.create("dev")
+file.create("dev/dev.R")
+rstudioapi::navigateToFile("dev/dev.R")
+```
+
+
