@@ -1,2 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^node_modules$
+^package\.json$
+^package-lock\.json$

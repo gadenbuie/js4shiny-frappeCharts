@@ -1,3 +1,5 @@
+## Setup R Package
+
 Create a package for this HTML widget.
 We're not going to publish this, so you can call it whatever you want
 
@@ -11,6 +13,61 @@ Add a dev script for notes
 dir.create("dev")
 file.create("dev/dev.R")
 rstudioapi::navigateToFile("dev/dev.R")
+```
+
+## Setup npm package
+
+Same process again, but this time for npm.
+
+```bash
+npm init
+
+# or
+
+npm init -y
+```
+
+Open `package.json` and take a look
+
+```json
+{
+  "name": "frappecharts",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
+```
+
+From Frappe Charts [docs#installation](https://frappe.io/charts/docs#installation):
+
+```bash
+npm install frappe-charts
+```
+
+We now have a dependency in `package.json` and there's a `package-lock.json` file.
+
+```json
+"dependencies": {
+  "frappe-charts": "^1.3.0"
+}
+```
+
+## Ignore node_modules but add package-lock
+
+There's also a `node_modules/` folder with `frappe-charts/` inside.
+Add `node_modules` to `.Rbuildignore` and `.gitignore`.
+(BTW, you can and are supposed to commit `package-lock.json`.)
+
+```{r ignore-node-module}
+usethis::use_build_ignore("node_modules")
+usethis::use_build_ignore("package.json")
+usethis::use_build_ignore("package-lock.json")
+usethis::use_git_ignore("node_modules")
 ```
 
 
