@@ -508,26 +508,18 @@ const redirectLogger = (function (origConsole) {
 
 
 <div id="chart"></div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># data &lt;- list(</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#   labels = rep(c(&quot;Sun&quot;, &quot;Mon&quot;, &quot;Tue&quot;, &quot;Wed&quot;, &quot;Thu&quot;, &quot;Fri&quot;, &quot;Sat&quot;), 4),</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#   datasets = list(</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#     list(name = &quot;Python&quot;, values = runif(7 * 4, 0, 50)),</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#     list(name = &quot;R&quot;, values = runif(7 * 4, 0, 100))</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#   )</span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># )</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">data &lt;-</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="st">  </span>babynames <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="st">  </span><span class="kw">filter</span>(</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">    name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ruth&quot;</span>, <span class="st">&quot;August&quot;</span>),</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">    year <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1980</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="st">  </span><span class="kw">group_by</span>(year, name) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">sum</span>(n)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="st">  </span><span class="kw">pivot_wider</span>(year, name, <span class="dt">values_from =</span> n)</a>
-<a class="sourceLine" id="cb1-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb1-20" data-line-number="20">data[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, ]</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">data &lt;-</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="st">  </span>babynames <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">    name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ruth&quot;</span>, <span class="st">&quot;August&quot;</span>),</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    year <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1980</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">  </span><span class="kw">group_by</span>(year, name) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n =</span> <span class="kw">sum</span>(n)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10"><span class="st">  </span><span class="kw">pivot_wider</span>(year, name, <span class="dt">values_from =</span> n)</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">data[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, ]</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##    year August  Ruth
 ##   &lt;dbl&gt;  &lt;int&gt; &lt;int&gt;

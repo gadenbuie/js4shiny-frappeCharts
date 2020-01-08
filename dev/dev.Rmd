@@ -347,3 +347,31 @@ x.data = chartData
 ```
 
 </details>
+
+
+## This is basically what `htmlwidgets` does, just inside a framework
+
+We now have all of the pieces of an `htmlwidget`,
+it's just a bit less coordinated.
+
+1. `htmlwidgets` gives us a slightly nicer way of specifying dependencies
+   in `inst/htmlwidgets/frappeChart.yaml`. We'll have to update that file.
+   
+2. When we started we added a `div(id = "chart")`. 
+   It would be annoying to have to make sure that each `id` is always unique.
+   `htmlwidgets` will add this `div` for us and give each one a unique id.
+   We won't have to write any code for this, it just happens.
+   
+3. We'll write an R function that will take input data and options and format
+   it into a list, like the `opts` we've been using.
+   Then we hand the data to `htmlwidgets` and it embeds it in a `<script>` tag
+   for us.
+   It will also find that data automatically and make it available on the JS side.
+   
+4. Finally, we wrote some code in JavaScript to initialize the chart.
+   In the same way, we'll write some code in `inst/htmlwidgets/frappeChart.js`
+   which is where we'll reformat the data and options passed from the R world
+   by htmlwidgets. We also need to instantiate the chart object. For advanced
+   usage, this is also where we'll put code that would let us update the
+   widget in place without having to re-render the whole chart.
+   

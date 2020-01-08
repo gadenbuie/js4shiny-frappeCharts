@@ -22,14 +22,6 @@ tagList(
 ```
 
 ```{r data}
-# data <- list(
-#   labels = rep(c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"), 4),
-#   datasets = list(
-#     list(name = "Python", values = runif(7 * 4, 0, 50)),
-#     list(name = "R", values = runif(7 * 4, 0, 100))
-#   )
-# )
-
 data <-
   babynames %>% 
   filter(
