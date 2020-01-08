@@ -135,3 +135,47 @@ and then edit `package.json` to add copy tasks
   "build": "npm run copy-js"
 }
 ```
+
+## Create a demo html_document_plain()
+
+```{r create-demo-html}
+dir.create("dev/demo")
+js4shiny::js4shiny_rmd(path = "dev/demo/demo.Rmd")
+```
+
+Use the example in the [Frappe Charts Docs](https://frappe.io/charts/docs).
+
+```{r}
+tagList(
+  div(id = "chart"),
+  htmltools::htmlDependency(
+    name = "frappe-charts",
+    version = "1.3.0",
+    package = "frappeCharts",
+    src = "htmlwidgets/lib/frappe-charts",
+    script = "frappe-charts.min.iife.js",
+    all_files = TRUE
+  )
+)
+```
+
+And copy the JS into a javascript chunk.
+
+`r emo::ji("warning")` The dependencies won't be found until you build/install.
+
+```{r build-install}
+devtools::document()
+devtools::install()
+```
+
+If you get a path not found error
+
+```
+Error: path for html_dependency not found: inst/htmlwidgets/lib/frappe-charts
+```
+
+it's most likely because
+
+```
+src = "inst/htmlwidgets/lib/frappe-charts"
+```
