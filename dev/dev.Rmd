@@ -290,3 +290,60 @@ opts <- list(
   isNavigable = TRUE
 )
 ```
+
+## Add a real data source
+
+Using the `babynames` package, pick two names to compare.
+
+```{r babynames}
+library(dplyr)
+library(babynames)
+
+
+data <-
+  babynames %>% 
+  filter(
+    name %in% c("Ruth", "August"),
+    year >= 1980
+  ) %>% 
+  group_by(year, name) %>% 
+  summarize(n = sum(n)) %>% 
+  ungroup() %>% 
+  pivot_wider(year, name, values_from = n)
+```
+
+At this point the chart won't work,
+but you can use the browser dev console 
+to find the right steps to reformat the data into the expected format.
+
+We'll make the **strong** assumption that the tibble in R
+should always be formatted with the columns
+
+1. `labels`
+2. first data set...
+3. second data set...
+4. etc.
+
+`repl_example("reformat-r2js-data")`
+
+<details><summary>Answer</summary>
+
+```js
+const chartData = {labels: [], datasets: []}
+
+// Get keys of data, assume that first entry is for labels, the rest are data
+let labelColumn = Object.keys(x.data)[0]
+let columns = Object.keys(x.data).slice(1)
+
+// First column in x.data is the labels
+chartData.labels = x.data[labelColumn]
+
+// Create an appropriate object for each column, reformat data and add to chartData
+columns.forEach(function(col) {
+  chartData.datasets.push({name: col, values: x.data[col]})
+})
+
+x.data = chartData
+```
+
+</details>

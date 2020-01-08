@@ -4,6 +4,9 @@ output: js4shiny::html_document_js
 
 ```{r htmldeps, echo=FALSE}
 library(htmltools)
+library(dplyr)
+library(tidyr)
+library(babynames)
 
 tagList(
   div(id = "chart"),
@@ -19,13 +22,26 @@ tagList(
 ```
 
 ```{r data}
-data <- list(
-  labels = rep(c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"), 4),
-  datasets = list(
-    list(name = "Python", values = runif(7 * 4, 0, 50)),
-    list(name = "R", values = runif(7 * 4, 0, 100))
-  )
-)
+# data <- list(
+#   labels = rep(c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"), 4),
+#   datasets = list(
+#     list(name = "Python", values = runif(7 * 4, 0, 50)),
+#     list(name = "R", values = runif(7 * 4, 0, 100))
+#   )
+# )
+
+data <-
+  babynames %>% 
+  filter(
+    name %in% c("Ruth", "August"),
+    year >= 1980
+  ) %>% 
+  group_by(year, name) %>% 
+  summarize(n = sum(n)) %>% 
+  ungroup() %>% 
+  pivot_wider(year, name, values_from = n)
+
+data[1:5, ]
 
 opts <- list(
   title = "My AwesomeR Chart",
@@ -35,7 +51,7 @@ opts <- list(
   data = data,
   lineOptions = list(regionFill = TRUE, hideDots = FALSE),
   axisOptions = list(xIsSeries = TRUE),
-  isNavigable = TRUE
+  isNavigable = c(TRUE, TRUE)
 )
 
 tags$script(
@@ -49,13 +65,21 @@ tags$script(
 let x = document.getElementById('chart-opts')
 x = JSON.parse(x.textContent)
 
-// const data = {
-//     labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-//     datasets: [
-//       { name: "R", values: [18, 40, 30, 35, 8, 52, 17, -4] },
-//       { name: "Python", values: [30, 50, -10, 15, 18, 32, 27, 14] }
-//     ]
-// }
+const chartData = {labels: [], datasets: []}
+
+// Get keys of data, assume that first entry is for labels, the rest are data
+let labelColumn = Object.keys(x.data)[0]
+let columns = Object.keys(x.data).slice(1)
+
+// First column in x.data is the labels
+chartData.labels = x.data[labelColumn]
+
+// Create an appropriate object for each column, reformat data and add to chartData
+columns.forEach(function(col) {
+  chartData.datasets.push({name: col, values: x.data[col]})
+})
+
+x.data = chartData
 
 const chart = new frappe.Chart("#chart", x)
 ```
