@@ -179,3 +179,19 @@ it's most likely because
 ```
 src = "inst/htmlwidgets/lib/frappe-charts"
 ```
+
+## Replace the example data with another data set and example
+
+The first demo mixes chart types and we don't want to do that.
+Use the example from
+[Basic Chart](https://frappe.io/charts/docs/basic/basic_chart#adding-more-datasets).
+
+```js
+const data = {
+    labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    datasets: [
+      { name: "R", values: [18, 40, 30, 35, 8, 52, 17, -4] },
+      { name: "Python", values: [30, 50, -10, 15, 18, 32, 27, 14] }
+    ]
+}
+```
