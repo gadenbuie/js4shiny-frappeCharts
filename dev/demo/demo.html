@@ -511,45 +511,39 @@ const redirectLogger = (function (origConsole) {
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Sun&quot;</span>, <span class="st">&quot;Mon&quot;</span>, <span class="st">&quot;Tue&quot;</span>, <span class="st">&quot;Wed&quot;</span>, <span class="st">&quot;Thu&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span>),</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">  <span class="dt">datasets =</span> <span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">    <span class="kw">list</span>(<span class="dt">name =</span> <span class="st">&quot;R&quot;</span>, <span class="dt">values =</span> <span class="kw">runif</span>(<span class="dv">8</span>, <span class="dv">0</span>, <span class="dv">100</span>)),</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="kw">list</span>(<span class="dt">name =</span> <span class="st">&quot;Python&quot;</span>, <span class="dt">values =</span> <span class="kw">runif</span>(<span class="dv">8</span>, <span class="dv">0</span>, <span class="dv">50</span>))</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">    <span class="kw">list</span>(<span class="dt">name =</span> <span class="st">&quot;Python&quot;</span>, <span class="dt">values =</span> <span class="kw">runif</span>(<span class="dv">8</span>, <span class="dv">0</span>, <span class="dv">50</span>)),</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="kw">list</span>(<span class="dt">name =</span> <span class="st">&quot;R&quot;</span>, <span class="dt">values =</span> <span class="kw">runif</span>(<span class="dv">8</span>, <span class="dv">0</span>, <span class="dv">100</span>))</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6">  )</a>
 <a class="sourceLine" id="cb1-7" data-line-number="7">)</a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">tags<span class="op">$</span><span class="kw">script</span>(</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">  <span class="dt">id =</span> <span class="st">&quot;data&quot;</span>,</a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">  <span class="dt">type =</span> <span class="st">&quot;application/json&quot;</span>,</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">  htmlwidgets<span class="op">:::</span><span class="kw">toJSON</span>(data)</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">)</a></code></pre></div>
-<script id="data" type="application/json">{"labels":["Sun","Mon","Tue","Wed","Thu","Fri","Sat","Sun"],"datasets":[{"name":"R","values":[88.8308963971213,19.3186549702659,42.8294315235689,24.7349868295714,62.31626693625,88.1233525462449,34.5980829792097,12.8944476367906]},{"name":"Python","values":[46.5215470409021,12.8393815713935,4.01114537380636,29.971885564737,4.40267870435491,8.44610662898049,3.04688910255209,42.4346339190379]}]}</script>
-<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">let</span> data <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">'data'</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">data <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(<span class="va">data</span>.<span class="at">textContent</span>)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">opts &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">  <span class="dt">title =</span> <span class="st">&quot;My AwesomeR Chart&quot;</span>,</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">  <span class="dt">type =</span> <span class="st">&quot;line&quot;</span>,</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">  <span class="dt">height =</span> <span class="dv">250</span>,</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">  <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;#466683&quot;</span>, <span class="st">&quot;#44bc96&quot;</span>),</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">  <span class="dt">data =</span> data</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">)</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">tags<span class="op">$</span><span class="kw">script</span>(</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">  <span class="dt">id =</span> <span class="st">&quot;chart-opts&quot;</span>,</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">  <span class="dt">type =</span> <span class="st">&quot;application/json&quot;</span>,</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">  htmlwidgets<span class="op">:::</span><span class="kw">toJSON</span>(opts)</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">)</a></code></pre></div>
+<script id="chart-opts" type="application/json">{"title":"My AwesomeR Chart","type":"line","height":250,"colors":["#466683","#44bc96"],"data":{"labels":["Sun","Mon","Tue","Wed","Thu","Fri","Sat","Sun"],"datasets":[{"name":"Python","values":[39.9432864156552,25.2527938224375,39.8755516158417,48.0921488022432,5.01228478970006,27.5107749504969,20.1021222979762,32.4653589865193]},{"name":"R","values":[15.6279036076739,90.4843728756532,54.6546421479434,60.2293464588001,39.6337900310755,5.45349009335041,16.587344603613,0.042784633114934]}]}}</script>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">let</span> x <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">'chart-opts'</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">x <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(<span class="va">x</span>.<span class="at">textContent</span>)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">const</span> chart <span class="op">=</span> <span class="kw">new</span> <span class="va">frappe</span>.<span class="at">Chart</span>(<span class="st">&quot;#chart&quot;</span><span class="op">,</span> <span class="op">{</span>  <span class="co">// or a DOM element,</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">                                            <span class="co">// new Chart() in case of ES6 module with above usage</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="dt">title</span><span class="op">:</span> <span class="st">&quot;My Awesome Chart&quot;</span><span class="op">,</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">    <span class="dt">data</span><span class="op">:</span> data<span class="op">,</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">    <span class="dt">type</span><span class="op">:</span> <span class="st">'line'</span><span class="op">,</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">    <span class="dt">height</span><span class="op">:</span> <span class="dv">250</span><span class="op">,</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">    <span class="dt">colors</span><span class="op">:</span> [<span class="st">'#7cd6fd'</span><span class="op">,</span> <span class="st">'#743ee2'</span>]</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="op">}</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">const</span> chart <span class="op">=</span> <span class="kw">new</span> <span class="va">frappe</span>.<span class="at">Chart</span>(<span class="st">&quot;#chart&quot;</span><span class="op">,</span> x)</a></code></pre></div>
 <div id="out-unnamed-chunk-1">
 <pre></pre>
 </div>
 <script type="text/javascript">
 const log_out_unnamed_chunk_1 = redirectLogger(document.querySelector("#out-unnamed-chunk-1 > pre"))
 document.addEventListener("DOMContentLoaded", function() {
-log_out_unnamed_chunk_1(`let data = document.getElementById('data')
-data = JSON.parse(data.textContent)
+log_out_unnamed_chunk_1(`let x = document.getElementById('chart-opts')
+x = JSON.parse(x.textContent)
 
-const chart = new frappe.Chart("#chart", {  // or a DOM element,
-                                            // new Chart() in case of ES6 module with above usage
-    title: "My Awesome Chart",
-    data: data,
-    type: 'line',
-    height: 250,
-    colors: ['#7cd6fd', '#743ee2']
-})`)
+const chart = new frappe.Chart("#chart", x)`)
 })
 </script>
 

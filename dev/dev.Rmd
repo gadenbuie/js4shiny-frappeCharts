@@ -246,3 +246,16 @@ so that each re-run gives a new plot.
 
 Delete the `data` in the JS side.
 
+## Augment data to set options for the chart
+
+Embed `data` in another list `opts` that will carry additional options, 
+such as `title`, `type` and `colors`.
+
+Parse the embedded `<script>` and pass the whole object to `frappe.Chart()`.
+
+Change the colors to 
+
+- `#466683` (dark blue)
+- `#44bc96` (green)
+- `#d33f49` (red)
+- `#993d70` (purple)

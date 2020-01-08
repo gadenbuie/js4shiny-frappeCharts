@@ -22,28 +22,29 @@ tagList(
 data <- list(
   labels = c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"),
   datasets = list(
-    list(name = "R", values = runif(8, 0, 100)),
-    list(name = "Python", values = runif(8, 0, 50))
+    list(name = "Python", values = runif(8, 0, 50)),
+    list(name = "R", values = runif(8, 0, 100))
   )
 )
 
+opts <- list(
+  title = "My AwesomeR Chart",
+  type = "line",
+  height = 250,
+  colors = c("#466683", "#44bc96"),
+  data = data
+)
+
 tags$script(
-  id = "data",
+  id = "chart-opts",
   type = "application/json",
-  htmlwidgets:::toJSON(data)
+  htmlwidgets:::toJSON(opts)
 )
 ```
 
 ```{js}
-let data = document.getElementById('data')
-data = JSON.parse(data.textContent)
+let x = document.getElementById('chart-opts')
+x = JSON.parse(x.textContent)
 
-const chart = new frappe.Chart("#chart", {  // or a DOM element,
-                                            // new Chart() in case of ES6 module with above usage
-    title: "My Awesome Chart",
-    data: data,
-    type: 'line',
-    height: 250,
-    colors: ['#7cd6fd', '#743ee2']
-})
+const chart = new frappe.Chart("#chart", x)
 ```
