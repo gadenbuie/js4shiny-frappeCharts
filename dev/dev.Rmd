@@ -1,3 +1,7 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
 ## Setup R Package
 
 Create a package for this HTML widget.
@@ -90,3 +94,44 @@ and creates a file `R/frappeChart.R` with the functions
 - `frappeChart()`
 - `frappeChartOutput()` (for shiny)
 - `renderFrappeChart()` (for shiny)
+
+## Use `npm` to get our dependencies in the right place
+
+`htmlwidgets` load dependencies in a way that's exactly the same as using a
+`<script>` tag in the HTML `<head>`.
+Look at the documentation on Frappe Charts and decide which file we should use.
+
+Here's the block from their docs
+
+```
+<script src="https://cdn.jsdelivr.net/npm/frappe-charts@1.2.4/dist/frappe-charts.min.iife.js"></script>
+<!-- or -->
+<script src="https://unpkg.com/frappe-charts@1.2.4/dist/frappe-charts.min.iife.js"></script>
+```
+
+We need to get our dependecy into a subfolder of `inst/htmlwidgets`.
+Convention is `inst/htmlwidgets/lib/<dependency_name>`.
+Rather than creating the directoy and copying over, etc.,
+we can have an `npm` build script do this for us.
+
+To avoid issues with mac/windows,
+we'll add a dev dependency on [`cpy-cli`](https://github.com/sindresorhus/cpy-cli)
+
+```bash
+npm install cpy-cli --save-dev
+```
+
+and
+
+```{r create-lib-dir}
+dir.create("inst/htmlwidets/lib/frappe-charts", recursive = TRUE)
+```
+
+and then edit `package.json` to add copy tasks
+
+```
+"scripts": {
+  "copy-js": "cpy 'node_modules/frappe-charts/dist/frappe-charts.min.iife*' inst/htmlwidgets/lib/frappe-charts/",
+  "build": "npm run copy-js"
+}
+```

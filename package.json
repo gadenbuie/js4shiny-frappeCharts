@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "copy-js": "cpy 'node_modules/frappe-charts/dist/frappe-charts.min.iife*' inst/htmlwidgets/lib/frappe-charts/",
+    "build": "npm run copy-js"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "frappe-charts": "^1.3.0"
+  },
+  "devDependencies": {
+    "cpy-cli": "^3.0.0"
   }
 }
