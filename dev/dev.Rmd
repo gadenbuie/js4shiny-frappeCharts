@@ -259,3 +259,19 @@ Change the colors to
 - `#44bc96` (green)
 - `#d33f49` (red)
 - `#993d70` (purple)
+
+## Learn about other options for line charts
+
+Read <https://frappe.io/charts/docs/basic/trends_regions>
+and add and test additional line options.
+
+Goal: shaded area chart with lines only.
+
+Make the `labels` one week and repeat 4 times.
+Generate `runif(7 * 4)` random numbers.
+
+```r
+rep(c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"), 4)
+```
+
+Find and implement an option to reduce the number of labels on the x-axis.

@@ -20,10 +20,10 @@ tagList(
 
 ```{r data}
 data <- list(
-  labels = c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"),
+  labels = rep(c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"), 4),
   datasets = list(
-    list(name = "Python", values = runif(8, 0, 50)),
-    list(name = "R", values = runif(8, 0, 100))
+    list(name = "Python", values = runif(7 * 4, 0, 50)),
+    list(name = "R", values = runif(7 * 4, 0, 100))
   )
 )
 
@@ -32,7 +32,9 @@ opts <- list(
   type = "line",
   height = 250,
   colors = c("#466683", "#44bc96"),
-  data = data
+  data = data,
+  lineOptions = list(regionFill = TRUE, hideDots = TRUE),
+  axisOptions = list(xIsSeries = TRUE)
 )
 
 tags$script(
