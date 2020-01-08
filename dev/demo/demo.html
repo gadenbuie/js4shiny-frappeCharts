@@ -522,20 +522,29 @@ const redirectLogger = (function (origConsole) {
 <a class="sourceLine" id="cb1-12" data-line-number="12">  <span class="dt">height =</span> <span class="dv">250</span>,</a>
 <a class="sourceLine" id="cb1-13" data-line-number="13">  <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;#466683&quot;</span>, <span class="st">&quot;#44bc96&quot;</span>),</a>
 <a class="sourceLine" id="cb1-14" data-line-number="14">  <span class="dt">data =</span> data,</a>
-<a class="sourceLine" id="cb1-15" data-line-number="15">  <span class="dt">lineOptions =</span> <span class="kw">list</span>(<span class="dt">regionFill =</span> <span class="ot">TRUE</span>, <span class="dt">hideDots =</span> <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1-16" data-line-number="16">  <span class="dt">axisOptions =</span> <span class="kw">list</span>(<span class="dt">xIsSeries =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1-17" data-line-number="17">)</a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb1-19" data-line-number="19">tags<span class="op">$</span><span class="kw">script</span>(</a>
-<a class="sourceLine" id="cb1-20" data-line-number="20">  <span class="dt">id =</span> <span class="st">&quot;chart-opts&quot;</span>,</a>
-<a class="sourceLine" id="cb1-21" data-line-number="21">  <span class="dt">type =</span> <span class="st">&quot;application/json&quot;</span>,</a>
-<a class="sourceLine" id="cb1-22" data-line-number="22">  htmlwidgets<span class="op">:::</span><span class="kw">toJSON</span>(opts)</a>
-<a class="sourceLine" id="cb1-23" data-line-number="23">)</a></code></pre></div>
-<script id="chart-opts" type="application/json">{"title":"My AwesomeR Chart","type":"line","height":250,"colors":["#466683","#44bc96"],"data":{"labels":["Sun","Mon","Tue","Wed","Thu","Fri","Sat","Sun","Mon","Tue","Wed","Thu","Fri","Sat","Sun","Mon","Tue","Wed","Thu","Fri","Sat","Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"datasets":[{"name":"Python","values":[27.8079907293431,48.6376440385357,14.289040712174,16.1302972817793,40.4263368342072,8.96539909299463,7.39056700840592,41.9472363777459,1.92708624526858,17.0715794200078,1.52271240949631,38.8807485927828,18.6887266114354,3.66263354662806,30.7442274875939,29.339785547927,8.5889266920276,7.09071918390691,42.5338652450591,47.3522113519721,10.2943439502269,28.225671662949,0.412961223628372,12.2721731313504,40.5411853455007,4.08651942852885,16.6512168128975,14.5558502641506]},{"name":"R","values":[60.6346025830135,28.8133186288178,6.19163243100047,79.6373375924304,28.0702020972967,76.252326532267,9.07979430630803,38.7683974113315,82.5955662876368,62.7872075419873,23.5086790984496,24.9986577779055,31.2637999653816,66.6085499804467,63.4278808021918,45.5374459037557,29.3142916867509,40.5886340886354,79.3140980182216,85.7972224242985,65.2966377092525,40.9052459988743,17.9486706852913,88.9790299348533,15.7261246815324,98.3932231552899,7.79129408765584,77.8003470506519]}]},"lineOptions":{"regionFill":true,"hideDots":true},"axisOptions":{"xIsSeries":true}}</script>
+<a class="sourceLine" id="cb1-15" data-line-number="15">  <span class="dt">lineOptions =</span> <span class="kw">list</span>(<span class="dt">regionFill =</span> <span class="ot">TRUE</span>, <span class="dt">hideDots =</span> <span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">  <span class="dt">axisOptions =</span> <span class="kw">list</span>(<span class="dt">xIsSeries =</span> <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">  <span class="dt">isNavigable =</span> <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">)</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">tags<span class="op">$</span><span class="kw">script</span>(</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">  <span class="dt">id =</span> <span class="st">&quot;chart-opts&quot;</span>,</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22">  <span class="dt">type =</span> <span class="st">&quot;application/json&quot;</span>,</a>
+<a class="sourceLine" id="cb1-23" data-line-number="23">  htmlwidgets<span class="op">:::</span><span class="kw">toJSON</span>(opts)</a>
+<a class="sourceLine" id="cb1-24" data-line-number="24">)</a></code></pre></div>
+<script id="chart-opts" type="application/json">{"title":"My AwesomeR Chart","type":"line","height":250,"colors":["#466683","#44bc96"],"data":{"labels":["Sun","Mon","Tue","Wed","Thu","Fri","Sat","Sun","Mon","Tue","Wed","Thu","Fri","Sat","Sun","Mon","Tue","Wed","Thu","Fri","Sat","Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"datasets":[{"name":"Python","values":[36.8783984449692,0.3008205560036,28.5852213855833,33.7746525881812,32.3063875199296,30.7150896871462,8.29450781457126,49.1399688180536,6.33369348943233,27.6973958243616,6.37135574361309,32.0640357909724,34.8882558988407,19.375601503998,49.6214389917441,28.2911687972955,46.0429937695153,36.2517389701679,11.3456455990672,32.413131732028,33.8291544001549,49.593669816386,39.5639568567276,36.6662442567758,24.016499274876,21.2378127500415,12.9865748574957,34.1270580189303]},{"name":"R","values":[36.1423551337793,9.12210487294942,8.53648635093123,52.5985381798819,51.8149034352973,55.7358885416761,87.718225363642,51.5195427695289,30.7746515143663,98.5726148355752,89.6104783285409,30.9769994113594,47.0162642886862,6.11476264894009,53.8708401611075,39.8319646948949,41.982742282562,0.284124375320971,51.467036921531,55.6050417246297,13.1211278261617,37.7798362169415,60.3605185169727,39.7546014282852,28.6238499218598,7.69493547268212,13.510471326299,85.0977816618979]}]},"lineOptions":{"regionFill":true,"hideDots":false},"axisOptions":{"xIsSeries":true},"isNavigable":true}</script>
 <div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">let</span> x <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">'chart-opts'</span>)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">x <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(<span class="va">x</span>.<span class="at">textContent</span>)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">const</span> chart <span class="op">=</span> <span class="kw">new</span> <span class="va">frappe</span>.<span class="at">Chart</span>(<span class="st">&quot;#chart&quot;</span><span class="op">,</span> x)</a></code></pre></div>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">// const data = {</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">//     labels: [&quot;Sun&quot;, &quot;Mon&quot;, &quot;Tue&quot;, &quot;Wed&quot;, &quot;Thu&quot;, &quot;Fri&quot;, &quot;Sat&quot;, &quot;Sun&quot;],</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">//     datasets: [</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">//       { name: &quot;R&quot;, values: [18, 40, 30, 35, 8, 52, 17, -4] },</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">//       { name: &quot;Python&quot;, values: [30, 50, -10, 15, 18, 32, 27, 14] }</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">//     ]</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">// }</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw">const</span> chart <span class="op">=</span> <span class="kw">new</span> <span class="va">frappe</span>.<span class="at">Chart</span>(<span class="st">&quot;#chart&quot;</span><span class="op">,</span> x)</a></code></pre></div>
 <div id="out-unnamed-chunk-1">
 <pre></pre>
 </div>
@@ -544,6 +553,14 @@ const log_out_unnamed_chunk_1 = redirectLogger(document.querySelector("#out-unna
 document.addEventListener("DOMContentLoaded", function() {
 log_out_unnamed_chunk_1(`let x = document.getElementById('chart-opts')
 x = JSON.parse(x.textContent)
+
+// const data = {
+//     labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+//     datasets: [
+//       { name: "R", values: [18, 40, 30, 35, 8, 52, 17, -4] },
+//       { name: "Python", values: [30, 50, -10, 15, 18, 32, 27, 14] }
+//     ]
+// }
 
 const chart = new frappe.Chart("#chart", x)`)
 })

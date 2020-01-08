@@ -244,7 +244,8 @@ Switch between `data` and `rData` and it should be the same!
 Change the values of the data in the R side to be random
 so that each re-run gives a new plot.
 
-Delete the `data` in the JS side.
+~~Delete the `data` in the JS side.~~
+Comment out the `data` on the JS side (but we'll want to see the structure later).
 
 ## Augment data to set options for the chart
 
@@ -275,3 +276,17 @@ rep(c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"), 4)
 ```
 
 Find and implement an option to reduce the number of labels on the x-axis.
+
+## Turn on dots again and make navigable
+
+```{r}
+opts <- list(
+  title = "My AwesomeR Chart",
+  type = "bar",
+  height = 250,
+  colors = c("#466683", "#44bc96"),
+  data = data,
+  axisOptions = list(xIsSeries = TRUE),
+  isNavigable = TRUE
+)
+```

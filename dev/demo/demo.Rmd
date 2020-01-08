@@ -33,8 +33,9 @@ opts <- list(
   height = 250,
   colors = c("#466683", "#44bc96"),
   data = data,
-  lineOptions = list(regionFill = TRUE, hideDots = TRUE),
-  axisOptions = list(xIsSeries = TRUE)
+  lineOptions = list(regionFill = TRUE, hideDots = FALSE),
+  axisOptions = list(xIsSeries = TRUE),
+  isNavigable = TRUE
 )
 
 tags$script(
@@ -47,6 +48,14 @@ tags$script(
 ```{js}
 let x = document.getElementById('chart-opts')
 x = JSON.parse(x.textContent)
+
+// const data = {
+//     labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+//     datasets: [
+//       { name: "R", values: [18, 40, 30, 35, 8, 52, 17, -4] },
+//       { name: "Python", values: [30, 50, -10, 15, 18, 32, 27, 14] }
+//     ]
+// }
 
 const chart = new frappe.Chart("#chart", x)
 ```
