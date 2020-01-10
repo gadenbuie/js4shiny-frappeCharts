@@ -502,3 +502,14 @@ To make this work we will:
 
 1. refactor the JS-side data processing code
 1. make the created `chart` object available outside `renderValue()`
+1. bind the factory function context to `el` as `widget`
+    1. Demo this by opening a rendered widget and showing `widget` as attached to the div
+1. expose `chart` with a `chart()` method
+    1. Demo by finding widget div and running
+       
+       ```
+       let c = $0.widget.chart()
+       c.addDataPoint(2017, [2500, 1500])
+       ```
+    1. Now, if nothing else, the `chart` object is accessible
+       so others can use or extend it.

@@ -32,6 +32,7 @@ HTMLWidgets.widget({
     return {
 
       renderValue: function(x) {
+        el.widget = this
         x.data = prepareChartData(x.data)
 
         chart = new frappe.Chart(el, x)
@@ -41,7 +42,9 @@ HTMLWidgets.widget({
 
         // TODO: code to re-render the widget with a new size
 
-      }
+      },
+
+      chart: () => chart
 
     };
   }
