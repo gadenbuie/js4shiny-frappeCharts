@@ -455,3 +455,28 @@ tooltipOptions = list(
   formatTooltipY = htmlwidgets::JS("d => d + ' babies'")
 )
 ```
+
+## Shiny comes for free!
+
+Create a basic Shiny app with
+
+1. Slider input to pick number of values (1:26 letters)
+1. A new data button that generates new data of same dimension
+1. The data are reactive, `x = letters[1:n]`, `y = runif(n)`
+1. Use `frappeCharts::frappeChartOutput()` linked to `frappeCharts::renderFrappeChart()`
+    - bar plot
+    - fix `tooltipOptions` to turn the `runif()` into a percent.
+    
+`dev/shiny/app.R`
+
+Make a mistake in the spelling for `formatTooltipY`
+and demo how hard it is for the end user to track down what's wrong.
+This points to how important it is to do the validation on the R side
+or to do the extra work to make the R API friendly.
+
+It's also a good place to demo debug strategies for Shiny and regular widgets.
+Open the app in an external window,
+show the dev console,
+find the frappeCharts binding
+and add a breakpoint.
+Then reload and show how you an use the dev console there to figure things out.
