@@ -17,7 +17,12 @@ ui <- fluidPage(
 )
 
 # Define server logic required to draw a histogram
-server <- function(input, output) {
+server <- function(input, output, session) {
+  initial_data <- data.frame(
+    x = LETTERS[seq_len(10)],
+    Frequency = rep(0.5, 10)
+  )
+
   data <- reactive({
     input$new_data
 
@@ -26,12 +31,16 @@ server <- function(input, output) {
 
   output$chart <- frappeCharts::renderFrappeChart({
     frappeCharts::frappeChart(
-      data(),
+      initial_data,
       type = "bar",
       tooltipOptions = list(
         formatTooltipY = htmlwidgets::JS("d => Math.round(d * 100) + '%'")
       )
     )
+  })
+
+  observe({
+    session$sendCustomMessage("frappeCharts:update", list(id = "chart", data = data()))
   })
 }
 

@@ -513,3 +513,36 @@ To make this work we will:
        ```
     1. Now, if nothing else, the `chart` object is accessible
        so others can use or extend it.
+1. Create an update method that takes new data and updates an existing chart.
+
+    Demo with `app.R`
+    
+    ```js
+    let el = document.getElementById('chart')
+    el.widget.update({x: ['A', 'B', 'C', 'D'], Frequency: [1, 2, 3, 4]})
+    ```
+    
+    Try with various values. You can increase the number of data points
+    but you can't add or change the series.
+
+1. Add a custom message handler that dependes on `HTMLWidgets.shinyMode`.
+
+    ```js
+    // after factory function
+    if (HTMLWidgets.shinyMode) {
+      Shiny.addCustomMessageHandler('frappeCharts:update', function({id, data}) {
+        let el = document.getElementById(id)
+        el.widget.update(data)
+      })
+    }
+    ```
+    
+    Restructure the app code so that the chart initializes with flat data (0.5).
+    Use `session$sendCustomMessage` to trigger the update.
+    
+    Note that the JS function above takes `id` and `data` using destructuring.
+    It's easy to write `function(id, data)` but this won't work because
+    the handler can only take one argument.
+    
+    Demo the app, now updates are fast!
+

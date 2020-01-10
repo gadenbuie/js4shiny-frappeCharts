@@ -44,8 +44,23 @@ HTMLWidgets.widget({
 
       },
 
+      update: function(data) {
+        if (!chart) {
+          console.error("The chart has not yet been initialized.")
+        }
+        let chartData = prepareChartData(data)
+        chart.update(chartData)
+      },
+
       chart: () => chart
 
     };
   }
 });
+
+if (HTMLWidgets.shinyMode) {
+  Shiny.addCustomMessageHandler('frappeCharts:update', function({id, data}) {
+    let el = document.getElementById(id)
+    el.widget.update(data)
+  })
+}
