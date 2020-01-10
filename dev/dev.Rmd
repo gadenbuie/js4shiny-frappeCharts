@@ -578,3 +578,18 @@ To make this work we will:
     })
     }
     ```
+
+1. But now in Shiny it needs to go from a list to a data.frame.
+   To do this we use `shiny::registerInputHandler()` in R and
+   give the input event a type: `inputId_selected:frappeCharts-selected`.
+   
+   ```r
+   .onLoad <- function(libname, pkgname) {
+      shiny::registerInputHandler(
+        type = "frappeCharts-selected",
+        fun = function(value, session, inputName) {
+          as.data.frame(value, stringsAsFactors = FALSE)
+        }
+      )
+    }
+   ```

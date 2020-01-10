@@ -70,3 +70,12 @@ renderFrappeChart <- function(expr, env = parent.frame(), quoted = FALSE) {
 updateFrappeChart <- function(inputId, data, session = shiny::getDefaultReactiveDomain()) {
   session$sendCustomMessage("frappeCharts:update", list(id = inputId, data = data))
 }
+
+.onLoad <- function(libname, pkgname) {
+  shiny::registerInputHandler(
+    type = "frappeCharts-selected",
+    fun = function(value, session, inputName) {
+      as.data.frame(value, stringsAsFactors = FALSE)
+    }
+  )
+}

@@ -49,7 +49,7 @@ HTMLWidgets.widget({
               return acc
             }, {})
             data[labelsName] = label
-            Shiny.setInputValue(el.id + '_selected', data)
+            Shiny.setInputValue(el.id + '_selected:frappeCharts-selected', data)
           })
         }
       },
