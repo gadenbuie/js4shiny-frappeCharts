@@ -501,3 +501,4 @@ where `data` is the `data` part of the initial options object.
 To make this work we will:
 
 1. refactor the JS-side data processing code
+1. make the created `chart` object available outside `renderValue()`

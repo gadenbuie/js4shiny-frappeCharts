@@ -8,6 +8,9 @@ HTMLWidgets.widget({
 
     // TODO: define shared variables for this instance
 
+    // we'll create chart in renderValue but want to access it elsewhere
+    let chart = null
+
     // helper function to prep the data
     const prepareChartData = function(data) {
       const chartData = {labels: [], datasets: []}
@@ -31,7 +34,7 @@ HTMLWidgets.widget({
       renderValue: function(x) {
         x.data = prepareChartData(x.data)
 
-        const chart = new frappe.Chart(el, x)
+        chart = new frappe.Chart(el, x)
       },
 
       resize: function(width, height) {
