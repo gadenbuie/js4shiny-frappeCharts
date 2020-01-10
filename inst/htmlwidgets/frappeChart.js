@@ -33,6 +33,7 @@ HTMLWidgets.widget({
 
       renderValue: function(x) {
         el.widget = this
+        let labelsName = Object.keys(x.data)[0]
         x.data = prepareChartData(x.data)
 
         chart = new frappe.Chart(el, x)
@@ -40,7 +41,15 @@ HTMLWidgets.widget({
         if (HTMLWidgets.shinyMode && x.isNavigable) {
           el.addEventListener('data-select', function(ev) {
             let {index, values} = ev
-            Shiny.setInputValue(el.id + '_selected', {index, values})
+            let chart = el.widget.chart()
+            let label = chart.data.labels[index]
+            let names = chart.data.datasets.map(d => d.name)
+            let data = values.reduce(function(acc, v, idx) {
+              acc[names[idx]] = v
+              return acc
+            }, {})
+            data[labelsName] = label
+            Shiny.setInputValue(el.id + '_selected', data)
           })
         }
       },

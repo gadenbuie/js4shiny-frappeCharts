@@ -555,3 +555,26 @@ To make this work we will:
    Send back `index` and `values` from the event.
 
    Add `verbatimTextOutput('selected')` to show `input$chart_selected`.
+
+1. You would probably want to do some work for the user and return more meaningful values.
+   We won't cover this in the workshop, but I've demonstrated a potential method.
+
+   This function basically reverses the chart processing and 
+   and returns a list that should be a dataframe.
+   
+   ```js
+   if (HTMLWidgets.shinyMode && x.isNavigable) {
+    el.addEventListener('data-select', function(ev) {
+      let {index, values} = ev
+      let chart = el.widget.chart()
+      let label = chart.data.labels[index]
+      let names = chart.data.datasets.map(d => d.name)
+      let data = values.reduce(function(acc, v, idx) {
+        acc[names[idx]] = v
+        return acc
+      }, {})
+      data[labelsName] = label
+      Shiny.setInputValue(el.id + '_selected', data)
+    })
+    }
+    ```
