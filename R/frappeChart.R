@@ -5,11 +5,25 @@
 #' @import htmlwidgets
 #'
 #' @export
-frappeChart <- function(message, width = NULL, height = NULL, elementId = NULL) {
+frappeChart <- function(
+  data,
+  type = c("line", "bar", "pie", "percentage", "heatmap"),
+  title = "",
+  ...,
+  is_navigable = TRUE,
+  width = NULL,
+  height = 250,
+  elementId = NULL
+) {
 
   # forward options using x
   x = list(
-    message = message
+    title = title,
+    type = match.arg(type),
+    height = height,
+    data = data,
+    isNavigable = is_navigable,
+    ...
   )
 
   # create widget

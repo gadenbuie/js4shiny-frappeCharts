@@ -1,0 +1,22 @@
+---
+output: js4shiny::html_document_plain
+---
+
+```{r frappeChart}
+library(dplyr)
+library(tidyr)
+library(babynames)
+
+data <-
+  babynames %>% 
+  filter(
+    name %in% c("Ruth", "August"),
+    year >= 1980
+  ) %>% 
+  group_by(year, name) %>% 
+  summarize(n = sum(n)) %>% 
+  ungroup() %>% 
+  pivot_wider(year, name, values_from = n)
+
+frappeCharts::frappeChart(data, title = "This. Is. Awwesome.", elementId = "name-chart")
+```

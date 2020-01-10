@@ -393,3 +393,31 @@ rstudioapi::navigateToFile("inst/htmlwidgets/frappeChart.yaml")
 ```
 
 Note: keep `htmlwidgets` in `src`!
+
+## Write the R function
+
+**FILE:** `R/frappeChart.r`
+
+Add appropriate arguments to `frappeChart()`.
+
+* [title](https://frappe.io/charts/docs/reference/configuration#title)
+* [type](https://frappe.io/charts/docs/reference/configuration#type)
+* [colors](https://frappe.io/charts/docs/reference/configuration#colors)?
+* [is_navigable](https://frappe.io/charts/docs/reference/configuration#isnavigable)
+
+Structure the argumets into `x` and pass `...` for the "extra bits".
+
+Rebuild the package,
+then create a new R markdown document:
+`js4shiny::js4shiny_doc()`.
+ 
+Move the code loading `dplyr`, `tidyr`, `babynames`
+and formatting the data.
+Then call `frappeCharts::frappeChart()`.
+
+Render and open dev tools in the browser to see that it "works".
+Meaning that the data and dependencies are included,
+but the chart won't.
+Point out the random ID.
+Then go back and change it so we can find the element better.
+
