@@ -421,3 +421,18 @@ but the chart won't.
 Point out the random ID.
 Then go back and change it so we can find the element better.
 
+## Write JavaScript binding
+
+**FILE:** `inst/htmlwidgets/frappeChart.js`
+
+The final step is to move the Javascript we wrote before into the js binding.
+
+* Just put in `console.log(x)`, rebuild, rerender
+* Verify that this `x` looks the same as our `opts` from before
+* Copy all of the JS we wrote to reconfigure the data into the widget
+* Use `el` instead of `#chart`
+* Rebuild, rerender
+* it works!
+* Try adding other options
+
+

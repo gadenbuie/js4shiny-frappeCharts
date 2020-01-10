@@ -2,7 +2,7 @@
 output: js4shiny::html_document_plain
 ---
 
-```{r frappeChart}
+```{r frappeChart, message=FALSE}
 library(dplyr)
 library(tidyr)
 library(babynames)
@@ -18,5 +18,13 @@ data <-
   ungroup() %>% 
   pivot_wider(year, name, values_from = n)
 
-frappeCharts::frappeChart(data, title = "This. Is. Awwesome.", elementId = "name-chart")
+frappeCharts::frappeChart(
+  data,
+  title = "This. Is. Awwesome.", 
+  elementId = "name-chart",
+  lineOptions = list(regionFill = TRUE),
+  axisOptions = list(xIsSeries = TRUE),
+  colors = c("#466683", "#44bc96"),
+  width = "100%"
+)
 ```
