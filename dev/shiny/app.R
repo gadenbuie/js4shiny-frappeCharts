@@ -11,7 +11,8 @@ ui <- fluidPage(
     ),
     # Show a plot of the generated distribution
     mainPanel(
-      frappeCharts::frappeChartOutput("chart")
+      frappeCharts::frappeChartOutput("chart"),
+      verbatimTextOutput("selected")
     )
   )
 )
@@ -41,6 +42,10 @@ server <- function(input, output, session) {
 
   observe({
     updateFrappeChart("chart", data())
+  })
+
+  output$selected <- renderPrint({
+    input$chart_selected
   })
 }
 

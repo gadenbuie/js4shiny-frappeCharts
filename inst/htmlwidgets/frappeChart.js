@@ -36,6 +36,13 @@ HTMLWidgets.widget({
         x.data = prepareChartData(x.data)
 
         chart = new frappe.Chart(el, x)
+
+        if (HTMLWidgets.shinyMode && x.isNavigable) {
+          el.addEventListener('data-select', function(ev) {
+            let {index, values} = ev
+            Shiny.setInputValue(el.id + '_selected', {index, values})
+          })
+        }
       },
 
       resize: function(width, height) {
@@ -61,6 +68,8 @@ HTMLWidgets.widget({
 if (HTMLWidgets.shinyMode) {
   Shiny.addCustomMessageHandler('frappeCharts:update', function({id, data}) {
     let el = document.getElementById(id)
-    el.widget.update(data)
+    if (el.widget) {
+      el.widget.update(data)
+    }
   })
 }

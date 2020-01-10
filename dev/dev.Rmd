@@ -548,3 +548,10 @@ To make this work we will:
 
 1. Write a user-friendly wrapper around `sendCustomMessage` called `updateFrappeChart()`
 
+1. Now add an event listener to send chart navigation back to Shiny
+    
+   Attach the event listener during `renderValue()` and watch for the `data-select` event.
+   Use the `el.id` to create a new id, like `el.id + '_selected'`.
+   Send back `index` and `values` from the event.
+
+   Add `verbatimTextOutput('selected')` to show `input$chart_selected`.
