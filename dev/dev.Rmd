@@ -480,3 +480,24 @@ show the dev console,
 find the frappeCharts binding
 and add a breakpoint.
 Then reload and show how you an use the dev console there to figure things out.
+
+## Better data updates
+
+Frappe Charts, 
+like many JS libraries,
+includes a method for updating the widget
+without having to redraw the whole chart/plot/viz/etc.
+
+In Frappe Charts, the 
+[full data update](https://frappe.io/charts/docs/update_state/modify_data#updating-full-data)
+method is
+
+```js
+chart.update(data)
+```
+
+where `data` is the `data` part of the initial options object.
+
+To make this work we will:
+
+1. refactor the JS-side data processing code
