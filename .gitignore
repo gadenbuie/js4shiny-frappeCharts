@@ -1,2 +1,5 @@
 .Rproj.user
+.Rhistory
+.Rdata
+.DS_Store
 node_modules
