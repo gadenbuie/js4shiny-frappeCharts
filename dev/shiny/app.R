@@ -40,7 +40,7 @@ server <- function(input, output, session) {
   })
 
   observe({
-    session$sendCustomMessage("frappeCharts:update", list(id = "chart", data = data()))
+    updateFrappeChart("chart", data())
   })
 }
 

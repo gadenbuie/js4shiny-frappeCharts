@@ -4,11 +4,14 @@
 \alias{frappeChart-shiny}
 \alias{frappeChartOutput}
 \alias{renderFrappeChart}
+\alias{updateFrappeChart}
 \title{Shiny bindings for frappeChart}
 \usage{
 frappeChartOutput(outputId, width = "100\%", height = "400px")
 
 renderFrappeChart(expr, env = parent.frame(), quoted = FALSE)
+
+updateFrappeChart(inputId, data, session = shiny::getDefaultReactiveDomain())
 }
 \arguments{
 \item{outputId}{output variable to read from}

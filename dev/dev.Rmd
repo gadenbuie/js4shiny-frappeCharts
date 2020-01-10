@@ -546,3 +546,5 @@ To make this work we will:
     
     Demo the app, now updates are fast!
 
+1. Write a user-friendly wrapper around `sendCustomMessage` called `updateFrappeChart()`
+

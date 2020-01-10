@@ -2,10 +2,19 @@
 % Please edit documentation in R/frappeChart.R
 \name{frappeChart}
 \alias{frappeChart}
-\title{<Add Title>}
+\title{Create a Frappe Chart}
 \usage{
-frappeChart(message, width = NULL, height = NULL, elementId = NULL)
+frappeChart(
+  data,
+  type = c("line", "bar", "pie", "percentage", "heatmap"),
+  title = "",
+  ...,
+  is_navigable = TRUE,
+  width = NULL,
+  height = 250,
+  elementId = NULL
+)
 }
 \description{
-<Add Description>
+Creates a Frappe Chart
 }

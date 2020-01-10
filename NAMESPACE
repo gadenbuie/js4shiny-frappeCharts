@@ -3,4 +3,5 @@
 export(frappeChart)
 export(frappeChartOutput)
 export(renderFrappeChart)
+export(updateFrappeChart)
 import(htmlwidgets)

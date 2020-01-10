@@ -1,6 +1,6 @@
-#' <Add Title>
+#' Create a Frappe Chart
 #'
-#' <Add Description>
+#' Creates a Frappe Chart
 #'
 #' @import htmlwidgets
 #'
@@ -63,4 +63,10 @@ frappeChartOutput <- function(outputId, width = '100%', height = '400px'){
 renderFrappeChart <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted
   htmlwidgets::shinyRenderWidget(expr, frappeChartOutput, env, quoted = TRUE)
+}
+
+#' @rdname frappeChart-shiny
+#' @export
+updateFrappeChart <- function(inputId, data, session = shiny::getDefaultReactiveDomain()) {
+  session$sendCustomMessage("frappeCharts:update", list(id = inputId, data = data))
 }
