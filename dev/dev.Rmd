@@ -375,3 +375,21 @@ it's just a bit less coordinated.
    usage, this is also where we'll put code that would let us update the
    widget in place without having to re-render the whole chart.
    
+To create the htmlwidget,
+we're going to work through each of these pieces
+and put them in the right places.
+
+# Make it an htmlwidget
+
+## Declare dependencies
+
+**FILE:** `inst/htmlwidgets/frappeChart.yaml`
+
+Take the `htmltools::htmlDependency()` and 
+turn it into `inst/htmlwidgets/frappeChart.yaml`.
+
+```{r}
+rstudioapi::navigateToFile("inst/htmlwidgets/frappeChart.yaml")
+```
+
+Note: keep `htmlwidgets` in `src`!
