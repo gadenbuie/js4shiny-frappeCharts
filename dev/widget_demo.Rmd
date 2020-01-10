@@ -25,6 +25,10 @@ frappeCharts::frappeChart(
   lineOptions = list(regionFill = TRUE),
   axisOptions = list(xIsSeries = TRUE),
   colors = c("#466683", "#44bc96"),
-  width = "100%"
+  width = "100%",
+  tooltipOptions = list(
+    formatTooltipX = htmlwidgets::JS("d => 'Year: ' + d"),
+    formatTooltipY = htmlwidgets::JS("d => d + ' babies'")
+  )
 )
 ```

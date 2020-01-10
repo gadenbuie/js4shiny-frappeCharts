@@ -435,4 +435,23 @@ The final step is to move the Javascript we wrote before into the js binding.
 * it works!
 * Try adding other options
 
+### Writing JavaScript in R
 
+The [tooltips](https://frappe.io/charts/docs/basic/annotations#tooltips)
+can be formatted using the `tooltipOptions` property:
+
+```
+tooltipOptions: {
+    formatTooltipX: d => (d + '').toUpperCase(),
+    formatTooltipY: d => d + ' pts',
+}
+```
+
+To write this in R (add to `widget_demo.R`)
+
+```r
+tooltipOptions = list(
+  formatTooltipX = htmlwidgets::JS("d => 'Year: ' + d"),
+  formatTooltipY = htmlwidgets::JS("d => d + ' babies'")
+)
+```
