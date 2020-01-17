@@ -36,6 +36,16 @@ file.create("dev/dev.R")
 rstudioapi::navigateToFile("dev/dev.R")
 ```
 
+### Add the R package dependencies for an htmlwidget package
+
+``` r
+usethis::use_package("htmlwidgets")
+usethis::use_package("htmltools")
+usethis::use_package("jsonlite")
+usethis::use_package("shiny")
+usethis::use_package("yaml")
+```
+
 ## Setup npm package
 
   - [256f0ca112b2685608f9a17a4fb4e35d279c9830](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/256f0ca112b2685608f9a17a4fb4e35d279c9830)
