@@ -321,3 +321,13 @@ Read through it and discuss what each method does.
 ## Setup our input binding
 
 Now it's time to setup our input binding. Replace `FIXME` with `el.value`.
+(`r github_sha_link("85205fbcbb93ccb506558e62f73a8f0d6a88c83c")`)
+
+### Your Turn
+
+The `.value` of a `textarea` element 
+is a string containing the text inside the element.
+
+Update `.getValue()` to
+
+1. Return the number of characters the user has typed

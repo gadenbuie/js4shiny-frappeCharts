@@ -16,7 +16,7 @@ $.extend(typingSpeed, {
     // your input. In this function, find or construct the value that will be
     // returned to Shiny. The ID of `el` is used for the inputId.
 
-    return el.value;
+    return el.value.length;
   },
   setValue: function(el, value) {
     // This method is used for restoring the bookmarked state of your input
