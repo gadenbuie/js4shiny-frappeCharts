@@ -1,15 +1,15 @@
 // Ref: https://shiny.rstudio.com/articles/building-inputs.html
 // Ref: https://github.com/rstudio/shiny/blob/master/srcjs/input_binding.js
 
-const bindingName = new Shiny.InputBinding();
+const typingSpeed = new Shiny.InputBinding();
 
-$.extend(bindingName, {
+$.extend(typingSpeed, {
   find: function(scope) {
     // Specify the selector that identifies your input. `scope` is a general
     // parent of your input elements. This function should return the nodes of
     // ALL of the inputs that are inside `scope`. These elements should all
     // have IDs that are used as the inputId on the server side.
-    return scope.querySelectorAll("inputBindingSelector");
+    return scope.querySelectorAll(".typing-speed textarea");
   },
   getValue: function(el) {
     // For a particular input, this function is given the element containing
@@ -25,24 +25,24 @@ $.extend(bindingName, {
     // Basically, reverses .getValue()
 
     // e.g.; el.value = value
-    console.error('bindingName.setValue() is not yet defined');
+    console.error('typingSpeed.setValue() is not yet defined');
   },
   receiveMessage: function(el, data) {
     // Given the input's container and data, update the input
     // and its elements to reflect the given data.
     // The messages are sent from R/Shiny via
     // R> session$sendInputMessage(inputId, data)
-    console.error('bindingName.receiveMessage() is not yet defined');
+    console.error('typingSpeed.receiveMessage() is not yet defined');
 
     // If you want the update to trigger reactivity, trigger a subscribed event
-    $(el).trigger("change")
+    // $(el).trigger("keyup")
   },
   subscribe: function(el, callback) {
     // Listen to events on your input element. The following block listens to
     // the change event, but you might want to listen to another event.
     // Repeat the block for each event type you want to subscribe to.
 
-    $(el).on("change.bindingName", function(e) {
+    $(el).on("keyup.typingSpeed", function(e) {
       // Use callback() or callback(true).
       // If using callback(true) the rate policy applies,
       // for example if you need to throttle or debounce
@@ -57,8 +57,8 @@ $.extend(bindingName, {
     };
   },
   unsubscribe: function(el) {
-    $(el).off(".bindingName");
+    $(el).off(".typingSpeed");
   }
 });
 
-Shiny.inputBindings.register(bindingName, 'pkgName.bindingName');
+Shiny.inputBindings.register(typingSpeed, 'js4shiny.typingSpeed');

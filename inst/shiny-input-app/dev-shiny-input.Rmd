@@ -117,6 +117,8 @@ ui <- fluidPage(
 
 ## Start creating an input binding for `typingSpeedInput()`
 
+`r github_sha_link("02adb896c50a97ebe7f9a7fef2a6f00488f9418d")`
+
 Now we can open `typing.js` and create a Shiny input binding.
 
 If you used `js4shiny::snippets_install()`,
@@ -193,3 +195,36 @@ Shiny.inputBindings.register(bindingName, 'pkgName.bindingName');
 ```
 
 </details>
+
+If you use the snippet,
+it automatically walks you through 
+the first pass of parts that need to be changed.
+If you copied the template,
+you need to find and replace all:
+
+- `bindingName`: the name of the JavaScript object with the specifics of your
+  Shiny input. This name isn't user facing, but helps Shiny keep track of which
+  the inputs in an app.
+  
+  We'll call ours `typingSpeed`
+  
+- `inputBindingSelector`: this is the CSS selector that can be used to find
+  the HTML element of your input. The element you find here is the element in
+  your input's HTML that has the `id` with the input's `inputId`.
+  
+  In our case, we want the `textarea` element 
+  that's a descendent of `.typing-speed`, so we use
+  
+  ```css
+  .typing-speed textarea
+  ```
+  
+- `change`: This is the event that will be listened to by Shiny to know when
+  the input has updated. For our typing speed input, we're going to listen to
+  the `keyup` event.
+  
+- `pkgName`: if you're writing this input as part of a package, use your package
+  name. It's not critical; this just provides some namespacing in case there's
+  another package that impelements an in put with the same `bindingName`.
+  
+  Here we use `js4shiny`.
