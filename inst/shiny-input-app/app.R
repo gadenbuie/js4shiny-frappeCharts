@@ -6,7 +6,14 @@ typingSpeedInput <- function(inputId, label, placeholder = NULL) {
     div(
       class = "form-group typing-speed",
       label(class = "control-label", `for` = inputId, .label),
-      textarea(id = inputId, class = "form-control", placeholder = placeholder)
+      textarea(id = inputId, class = "form-control", placeholder = placeholder),
+      htmltools::htmlDependency(
+        name = "typingSpeed",
+        version = "0.0.1",
+        src = ".",
+        script = "typing.js",
+        all_files = FALSE
+      )
     )
   )
 }

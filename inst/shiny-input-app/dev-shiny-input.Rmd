@@ -196,6 +196,8 @@ Shiny.inputBindings.register(bindingName, 'pkgName.bindingName');
 
 </details>
 
+`r github_sha_link("6fffc2337ad475af2ab09ee571014afdbb680fb6")`
+
 If you use the snippet,
 it automatically walks you through 
 the first pass of parts that need to be changed.
@@ -228,3 +230,25 @@ you need to find and replace all:
   another package that impelements an in put with the same `bindingName`.
   
   Here we use `js4shiny`.
+
+## Add a dependency to the typing input
+
+To have `typing.js` included with our input,
+we use `htmltools::htmlDependency()` inside our input function.
+This guarantees that `typing.js` is loaded once per page
+and is included whenever a `typingSpeedInput()` is created.
+
+```{r}
+# I used the htmldeps snippet for this
+htmltools::htmlDependency(
+  name = "typingSpeed",
+  version = "0.0.1",
+  src = ".",
+  script = "typing.js",
+  all_files = FALSE
+)
+```
+
+Now when you run the app,
+you'll see `"FIXME"` as the output of `input$typing`.
+That's our next step.
