@@ -29,6 +29,8 @@ $.extend(typingSpeed, {
       return null
     }
 
+    if (nword < 3) return null
+
     let time = Date.now()
     let elapsed = (time - this._timing) / 1000
     return {

@@ -431,3 +431,11 @@ Return an object/list with
 - the current timestamp as `time` and 
 - the `text` in the input
 
+(`r github_sha_link("fa02cb2314fa58ea714002072be0f78da2c6aa82")`)
+
+### Your Turn: Hold your horses
+
+How does the app report the initial typing speed rates?
+
+Add another `if` statement to continue to return `null`
+until there are at least 3 words in the text box.
