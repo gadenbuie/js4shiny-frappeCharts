@@ -3,13 +3,16 @@ library(frappeCharts)
 
 options(scipen = 1e3)
 
-typingSpeedInput <- function(inputId, label, placeholder = NULL) {
+source("module_typingStats.R")
+
+typingSpeedInput <- function(inputId, label, placeholder = NULL, rows = 4) {
   .label <- label
   htmltools::withTags(
     div(
       class = "form-group typing-speed",
       label(class = "control-label", `for` = inputId, .label),
-      textarea(id = inputId, class = "form-control", placeholder = placeholder),
+      textarea(id = inputId, class = "form-control", placeholder = placeholder,
+               rows = rows),
       htmltools::htmlDependency(
         name = "typingSpeed",
         version = "0.0.1",
@@ -26,7 +29,7 @@ resetTypingSpeed <- function(inputId, session = getDefaultReactiveDomain()) {
 }
 
 ui <- fluidPage(
-  # textAreaInput("typing", "Type here..."),
+  typingStatsUI('typing_stats'),
   typingSpeedInput("typing", "Type here..."),
   actionButton("reset", "Reset"),
   frappeCharts::frappeChartOutput("chart_typing_speed")
@@ -42,18 +45,11 @@ server <- function(input, output, session) {
     resetTypingSpeed("typing")
   })
 
-  wpm <- reactiveValues(time = c(), wpm = c())
-
-  observeEvent(input$typing_reset, {
-    wpm$time <- c()
-    wpm$wpm <- c()
-  })
-
-  observeEvent(input$typing, {
-    req(input$typing)
-    wpm$time <- c(wpm$time, input$typing$time)
-    wpm$wpm <- c(wpm$wpm, input$typing$wpm)
-  })
+  wpm <- typingStats(
+    "typing_stats",
+    typing = reactive(input$typing),
+    typing_reset = reactive(input$typing_reset)
+  )
 
   output$chart_typing_speed <- frappeCharts::renderFrappeChart({
     frappeCharts::frappeChart(
@@ -66,11 +62,8 @@ server <- function(input, output, session) {
     )
   })
 
-  observeEvent(wpm$time, {
-    frappeCharts::updateFrappeChart(
-      inputId = "chart_typing_speed",
-      data = data.frame(time = wpm$time, wpm =  wpm$wpm)
-    )
+  observeEvent(wpm()$time, {
+    frappeCharts::updateFrappeChart('chart_typing_speed', wpm())
   })
 }
 

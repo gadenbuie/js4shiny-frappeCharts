@@ -5,6 +5,9 @@ output: github_document
 [shiny-debounce]: https://shiny.rstudio.com/reference/shiny/latest/debounce.html
 [updateText-shiny-input-binding]: https://github.com/rstudio/shiny/blob/a2a4e40821b9811a40e461f67e3622196d8aa726/srcjs/input_binding_text.js#L31-L41
 [checkboxInput-shiny-input-binding]: https://github.com/rstudio/shiny/blob/a2a4e40821b9811a40e461f67e3622196d8aa726/srcjs/input_binding_checkbox.js
+[typing-stats-module-gist]: https://gist.github.com/gadenbuie/08546fd96b96fbf810f84ccdc7b69bcc
+[stringdist]: https://github.com/markvanderloo/stringdist
+[type-racer]: https://gadenbuie.shinyapps.io/type-racer/
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(eval = FALSE)
@@ -516,7 +519,7 @@ If you didn't complete the `frappeChart` project earlier in the workshop,
 you can run the code below to install the package
 in the state I hope it's in by the time we finish that section.
 
-```r
+```{r}
 devtools::install_github("gadenbuie/js4shiny-frappeCharts@pkg")
 ```
 
@@ -527,7 +530,7 @@ To get setup,
 we're going to cache the `time` and `wpm` sent from the browser
 in a `reactiveValues` object that we can coerce into a `data.frame`.
 
-```r
+```{r}
 # server
 wpm <- reactiveValues(time = c(), wpm = c())
 
@@ -545,14 +548,14 @@ observeEvent(input$typing, {
 
 We add the `frappeCharts` output to our UI
 
-```r
+```{r}
 # ui
 frappeCharts::frappeChartOutput("chart_typing_speed")
 ```
 
 and use the following settings to render the `wpm` in "real time"
 
-```r
+```{r}
 # server
 output$chart_typing_speed <- frappeCharts::renderFrappeChart({
   frappeCharts::frappeChart(
@@ -568,9 +571,11 @@ output$chart_typing_speed <- frappeCharts::renderFrappeChart({
 
 ### Don't redraw: Use the update method we made for frappeCharts
 
+`r github_sha_link("8d519b645abb990df17843f36cc418591e238aca")`
+
 Replace the initial `frappeChart()` with a simple placeholder.
 
-```r
+```{r}
 # server
 output$chart_typing_speed <- frappeCharts::renderFrappeChart({
   frappeCharts::frappeChart(
@@ -586,7 +591,7 @@ output$chart_typing_speed <- frappeCharts::renderFrappeChart({
 
 and use the `updateFrappeChart()` function to update the chart in place.
 
-```r
+```{r}
 observeEvent(wpm$time, {
   frappeCharts::updateFrappeChart(
     inputId = "chart_typing_speed",
@@ -594,3 +599,68 @@ observeEvent(wpm$time, {
   )
 })
 ```
+
+## Final Step: Make it fun
+
+Download the [Shiny module I created][typing-stats-module-gist] for this project
+into the directory with your `app.R` file.
+
+```{r}
+download.file(
+  "http://bit.ly/js4shiny-typing-stats-module",
+  "module_typingStats.R"
+)
+```
+
+Then source this module at the start of your app.
+
+```{r}
+source("module_typingStats.R")
+```
+
+Add the module's UI to your UI above the typing area.
+
+```{r}
+# ui
+typingStatsUI('typing_stats')
+```
+
+While you're in the UI area,
+fix something I missed earlier.
+With bootstrap, 
+you can [set the number of rows](https://getbootstrap.com/docs/3.3/css/#textarea)
+in the `textarea`.
+Add this argument to `typingSpeedInput` and set the default value to `4`.
+
+Use the `typingStats()` module to calculate `wpm`.
+Replace the `wpm` reactive values list and the two observers we had before
+with the new `typingStats()` module.
+
+```{r}
+# server
+wpm <- typingStats(
+  "typing_stats", 
+  typing = reactive(input$typing), 
+  typing_reset = reactive(input$typing_reset)
+)
+```
+
+And finally, use the new `wpm()` reactive from the module 
+as the data for the `frappeChart` update.
+
+```{r}
+observeEvent(wpm()$time, {
+  frappeCharts::updateFrappeChart('chart_typing_speed', wpm())
+})
+```
+
+If you don't have the [stringdist] package installed,
+install it now to get some extra stats.
+
+```{r}
+install.packages("stringdist")
+```
+
+Push the app to <https://shinyapps.io>!
+
+Or check out the one I deployed: [type-racer].
