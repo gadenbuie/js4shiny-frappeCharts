@@ -29,7 +29,14 @@ $.extend(typingSpeed, {
       return null
     }
 
-    return {nchar, nword, timing: this._timing};
+    let time = Date.now()
+    let elapsed = (time - this._timing) / 1000
+    return {
+      wpm: nword / elapsed * 60,
+      cps: nchar / elapsed,
+      time,
+      text: el.value
+    }
   },
   setValue: function(el, value) {
     // This method is used for restoring the bookmarked state of your input

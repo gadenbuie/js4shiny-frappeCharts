@@ -408,3 +408,26 @@ and a `null` value is returned.
 
 Include the timing value in the data returned to Shiny
 so that you can verify it's working.
+
+(`r github_sha_link("073186bcc9741cb2494b4b9a17042ea5716a7dd5")`)
+
+### Your Turn: How Fast?
+
+Now you're ready to calculate typing statistics.
+
+Here's the idea:
+each time the user presses a key,
+we calculate the `elapsed` time in seconds since they started typing.
+
+Then, from that value calculate:
+
+- words per minute (`wpm`)
+- characters per second (`cps`)
+
+Return an object/list with 
+
+- `wpm`, 
+- `cps`, 
+- the current timestamp as `time` and 
+- the `text` in the input
+

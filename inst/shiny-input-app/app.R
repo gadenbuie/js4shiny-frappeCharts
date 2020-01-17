@@ -1,5 +1,7 @@
 library(shiny)
 
+options(scipen = 1e3)
+
 typingSpeedInput <- function(inputId, label, placeholder = NULL) {
   .label <- label
   htmltools::withTags(
