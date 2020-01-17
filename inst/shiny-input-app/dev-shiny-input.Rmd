@@ -440,6 +440,8 @@ How does the app report the initial typing speed rates?
 Add another `if` statement to continue to return `null`
 until there are at least 3 words in the text box.
 
+`r github_sha_link("9f915337a2ab55c7e94eaa5cfa454c21bc8d72ba")`
+
 ### Your Turn: Find a rate policy balance
 
 At this point, 
@@ -454,6 +456,8 @@ Try various settings of
 
 Find a good delay rate.
 
+`r github_sha_link("8519d729bca13c730528a287c3601c4df2828e4f")`
+
 ### Almost done: Implement `receiveMessage()`
 
 There's not much we'd want to do from the server side
@@ -467,3 +471,5 @@ clears the text input area.
 Add a reset button to your app that uses `shiny$sendInputMessage()`
 to send `typing` a `TRUE`
 whenever the button is clicked.
+
+`r github_sha_link("269e4ebdc48a66ecf7466192076c4fa259582cc6")`
