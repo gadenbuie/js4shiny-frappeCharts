@@ -317,3 +317,7 @@ your job is to tell Shiny a few key things:
 The input binding JavaScript for `checkboxInput()` is available
 in the [Shiny GitHub repository][checkboxInput-shiny-input-binding].
 Read through it and discuss what each method does.
+
+## Setup our input binding
+
+Now it's time to setup our input binding. Replace `FIXME` with `el.value`.
