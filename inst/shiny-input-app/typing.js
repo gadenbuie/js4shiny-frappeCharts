@@ -20,7 +20,16 @@ $.extend(typingSpeed, {
     const nchar = el.value.length;
     const nword = el.value.split(' ').length;
 
-    return {nchar, nword};
+    if (nchar === 0) {
+      this._timing = null
+      return null
+    }
+    if (!this._timing && nchar > 0) {
+      this._timing = Date.now()
+      return null
+    }
+
+    return {nchar, nword, timing: this._timing};
   },
   setValue: function(el, value) {
     // This method is used for restoring the bookmarked state of your input

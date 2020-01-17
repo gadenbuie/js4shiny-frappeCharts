@@ -343,6 +343,7 @@ You can add your own properties and methods to the input binding.
 As a convention,
 the property or method names start with `_`.
 Let's add a `_timing` property that with initialize with `null`.
+(`r github_sha_link("9568fdcd06fa1fe1815dc48bf6efb03f9af68b29")`)
 
 ```js
 $.extend(typingSpeed, {
@@ -380,3 +381,30 @@ person.sayHello()
 ```
 
 </details>
+
+#### Your Turn: Start `_timing`
+
+We're going to use this property to start timing the user's typing.
+On the one hand, 
+when they delete all the text in the text area,
+we want to reset the timers.
+On the other hand,
+when they start typing,
+we want to know when they started.
+
+Update the `.getValue()` method so that whenever
+
+- there are no characters in the textarea
+
+`this._timing` is set to `null` and a `null` value is returned to Shiny.
+
+Similarly, when
+
+- `this._timing` is `null`
+- and there are any characters in the text area
+
+`this._timing` is updated to the current time (`Date.now()`)
+and a `null` value is returned.
+
+Include the timing value in the data returned to Shiny
+so that you can verify it's working.
