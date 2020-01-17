@@ -454,3 +454,16 @@ Try various settings of
 
 Find a good delay rate.
 
+### Almost done: Implement `receiveMessage()`
+
+There's not much we'd want to do from the server side
+in terms of updating the typing area.
+But maybe we'd like to be able to add a "Reset" button.
+
+Write a method that,
+when it recieves a `true` value from the server,
+clears the text input area.
+
+Add a reset button to your app that uses `shiny$sendInputMessage()`
+to send `typing` a `TRUE`
+whenever the button is clicked.

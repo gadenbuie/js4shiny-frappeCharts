@@ -53,10 +53,12 @@ $.extend(typingSpeed, {
     // and its elements to reflect the given data.
     // The messages are sent from R/Shiny via
     // R> session$sendInputMessage(inputId, data)
-    console.error('typingSpeed.receiveMessage() is not yet defined');
 
     // If you want the update to trigger reactivity, trigger a subscribed event
-    // $(el).trigger("keyup")
+    if (typeof data === 'boolean' && data) {
+      el.value = ''
+      $(el).trigger('keyup')
+    }
   },
   subscribe: function(el, callback) {
     // Listen to events on your input element. The following block listens to

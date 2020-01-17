@@ -23,11 +23,16 @@ typingSpeedInput <- function(inputId, label, placeholder = NULL) {
 ui <- fluidPage(
   # textAreaInput("typing", "Type here..."),
   typingSpeedInput("typing", "Type here..."),
+  actionButton("reset", "Reset"),
   verbatimTextOutput("debug")
 )
 
 server <- function(input, output, session) {
   output$debug <- renderPrint(input$typing)
+
+  observeEvent(input$reset, {
+    session$sendInputMessage("typing", TRUE)
+  })
 }
 
 shinyApp(ui, server)
