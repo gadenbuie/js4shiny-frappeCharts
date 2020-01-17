@@ -13,7 +13,7 @@ output: github_document
 knitr::opts_chunk$set(eval = FALSE)
 
 github_sha_link <- function(sha) {
-  glue::glue("[{sha}](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/{sha})")
+  glue::glue("[changelog: {substr(sha, 1, 6)}](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/{sha})")
 }
 
 get_last_sha <- function() {
@@ -39,7 +39,7 @@ to show their speed over time as they type.
 
 ## Setup a folder for our app inside the frappeCharts package
 
-`r github_sha_link("113340074c3af9c2cdf46cd7787829d4ec56bfcf")`
+* `r github_sha_link("113340074c3af9c2cdf46cd7787829d4ec56bfcf")`
 
 Create the directory `inst/shiny-input-app` and add `app.R` and `typing.js`.
 
@@ -51,7 +51,8 @@ file.create("inst/shiny-input-app/typing.js")
 
 ## Create a basic Shiny app with a typing area
 
-`r github_sha_link("ff3a962f7e6d16a75ebdb620aac0fdfc9949086e")`
+* `r github_sha_link("ff3a962f7e6d16a75ebdb620aac0fdfc9949086e")`
+* Checkpoint: `js4shiny::repl_example("shiny-typing-01")`
 
 We'll start with typical Shiny inputs.
 
@@ -74,7 +75,7 @@ Run this app and type in the box.
 
 ## Create our own typingSpeedInput()
 
-`r github_sha_link("b7108029b58635652ce87f3e1ea9a2c5a6232020")`
+* `r github_sha_link("b7108029b58635652ce87f3e1ea9a2c5a6232020")`
 
 Use Shiny's `textAreaInput()` to get the template 
 for our own `typingSpeedInput()`
@@ -124,7 +125,8 @@ ui <- fluidPage(
 
 ## Start creating an input binding for `typingSpeedInput()`
 
-`r github_sha_link("02adb896c50a97ebe7f9a7fef2a6f00488f9418d")`
+* `r github_sha_link("02adb896c50a97ebe7f9a7fef2a6f00488f9418d")`
+* Checkpoint: `js4shiny::repl_example("shiny-typing-02")`
 
 Now we can open `typing.js` and create a Shiny input binding.
 
@@ -203,7 +205,7 @@ Shiny.inputBindings.register(bindingName, 'pkgName.bindingName');
 
 </details>
 
-`r github_sha_link("6fffc2337ad475af2ab09ee571014afdbb680fb6")`
+* `r github_sha_link("6fffc2337ad475af2ab09ee571014afdbb680fb6")`
 
 If you use the snippet,
 it automatically walks you through 
@@ -240,7 +242,7 @@ you need to find and replace all:
 
 ## Add a dependency to the typing input
 
-`r github_sha_link("0be8efb83bef664f707b8716eab1d5478de933c7")`
+* `r github_sha_link("0be8efb83bef664f707b8716eab1d5478de933c7")`
 
 To have `typing.js` included with our input,
 we use `htmltools::htmlDependency()` inside our input function.
@@ -443,7 +445,7 @@ How does the app report the initial typing speed rates?
 Add another `if` statement to continue to return `null`
 until there are at least 3 words in the text box.
 
-`r github_sha_link("9f915337a2ab55c7e94eaa5cfa454c21bc8d72ba")`
+* `r github_sha_link("9f915337a2ab55c7e94eaa5cfa454c21bc8d72ba")`
 
 ### Your Turn: Find a rate policy balance
 
@@ -459,7 +461,7 @@ Try various settings of
 
 Find a good delay rate.
 
-`r github_sha_link("8519d729bca13c730528a287c3601c4df2828e4f")`
+* `r github_sha_link("8519d729bca13c730528a287c3601c4df2828e4f")`
 
 ### Almost done: Implement `receiveMessage()`
 
@@ -475,7 +477,7 @@ Add a reset button to your app that uses `shiny$sendInputMessage()`
 to send `typing` a `TRUE`
 whenever the button is clicked.
 
-`r github_sha_link("269e4ebdc48a66ecf7466192076c4fa259582cc6")`
+* `r github_sha_link("269e4ebdc48a66ecf7466192076c4fa259582cc6")`
 
 Once you get that working,
 refactor it into a `resetTypingSpeed()` function.
@@ -483,7 +485,7 @@ refactor it into a `resetTypingSpeed()` function.
 This function should take an `inputId` and a `session` object.
 Use `shiny::getDefaultReactiveDomain()` for the default `session` value.
 
-`r github_sha_link("644a8b6c2e8f3719bda89cbd7801a90401c9eadb")`
+* `r github_sha_link("644a8b6c2e8f3719bda89cbd7801a90401c9eadb")`
 
 ### Final Step: Extra inputs on the side
 
@@ -504,13 +506,16 @@ to the input ID `{inputId}_reset`
 when the `this._timing` property is reset.
 Also, update the `debug` output to monitor `input$typing_reset` as well.
 
-`r github_sha_link("ccc35d6978dabf4a709a795f89719cc353ac72bd ")`
+* `r github_sha_link("ccc35d6978dabf4a709a795f89719cc353ac72bd ")`
 
 ## Use our frappeChart widget to show speed over time
 
+* Checkpoint (completed JS): `js4shiny::repl_example("shiny-typing-03")`
+* Checkpoint (with frappeChart): `js4shiny::repl_example("shiny-typing-04")`
+
 ### First pass
 
-`r github_sha_link("fe55bf588400f8586472b1050c0da1b931bad1c3")`
+* `r github_sha_link("fe55bf588400f8586472b1050c0da1b931bad1c3")`
 
 We're going to drop-in our `frappeChart` package to add a dynamic plot
 showing typing speed over time.
@@ -571,7 +576,7 @@ output$chart_typing_speed <- frappeCharts::renderFrappeChart({
 
 ### Don't redraw: Use the update method we made for frappeCharts
 
-`r github_sha_link("8d519b645abb990df17843f36cc418591e238aca")`
+* `r github_sha_link("8d519b645abb990df17843f36cc418591e238aca")`
 
 Replace the initial `frappeChart()` with a simple placeholder.
 
@@ -601,6 +606,9 @@ observeEvent(wpm$time, {
 ```
 
 ## Final Step: Make it fun
+
+* `r github_sha_link("d6fa10cb805ce8aa044987814cc22cadacb37ab3")`
+* Checkpoint (final app): `js4shiny::repl_example("shiny-typing-05")`
 
 Download the [Shiny module I created][typing-stats-module-gist] for this project
 into the directory with your `app.R` file.
