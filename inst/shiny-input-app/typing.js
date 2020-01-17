@@ -4,6 +4,7 @@
 const typingSpeed = new Shiny.InputBinding();
 
 $.extend(typingSpeed, {
+  _timing: null,
   find: function(scope) {
     // Specify the selector that identifies your input. `scope` is a general
     // parent of your input elements. This function should return the nodes of

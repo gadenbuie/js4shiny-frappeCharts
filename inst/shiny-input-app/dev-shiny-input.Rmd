@@ -335,4 +335,48 @@ Update `.getValue()` to
 1. Return the number of words the user has entered (`r github_sha_link("e3fa485bb60853e391302289213d3cd5f0846b3e")`)
 
 1. Create variables for both number of characters and words and return both
-   in an object
+   in an object (`r github_sha_link("edfb9399eae5207cc4a3ef9b48e62c9c92230477")`)
+   
+### Tracking the timing
+
+You can add your own properties and methods to the input binding.
+As a convention,
+the property or method names start with `_`.
+Let's add a `_timing` property that with initialize with `null`.
+
+```js
+$.extend(typingSpeed, {
+  _timing: null,
+  // ...
+}
+```
+
+Inside our input binding methods,
+we can now access `this._timing`
+to get the timing property for the input.
+(And a new input binding is created for each input,
+so if there are multiple typingSpeed inputs, 
+we'll automatically get the right `_timing` value.)
+
+For methods called on objects, 
+`this` refers the the parent object.
+
+Try the `repl_example("this-simple")` example to see how this works.
+
+<details><summary>`repl_example("this-simple")`</summary>
+
+```js
+const person = {
+  name: "Christelle",
+  sayHello: function() {
+    console.log(`Hello, ${this.name}!`)
+  }
+}
+
+person.sayHello()
+
+person.name = 'Mateo'
+person.sayHello()
+```
+
+</details>
