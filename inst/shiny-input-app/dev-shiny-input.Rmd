@@ -23,6 +23,8 @@ to show their speed over time as they type.
 
 ## Setup a folder for our app inside the frappeCharts package
 
+`r github_sha_link("2188781657884a743c2c4f94dc1fa7755a7de261")`
+
 Create the directory `inst/shiny-input-app` and add `app.R` and `typing.js`.
 
 ```{r}
@@ -31,3 +33,23 @@ file.create("inst/shiny-input-app/app.R")
 file.create("inst/shiny-input-app/typing.js")
 ```
 
+## Create a basic Shiny app with a typing area
+
+We'll start with typical Shiny inputs.
+
+```r
+library(shiny)
+
+ui <- fluidPage(
+  textAreaInput("typing", "Type here..."),
+  verbatimTextOutput("debug")
+)
+
+server <- function(input, output, session) {
+  output$debug <- renderPrint(input$typing)
+}
+
+shinyApp(ui, server)
+```
+
+Run this app and type in the box.
