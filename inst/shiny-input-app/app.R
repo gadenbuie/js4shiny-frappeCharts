@@ -20,6 +20,10 @@ typingSpeedInput <- function(inputId, label, placeholder = NULL) {
   )
 }
 
+resetTypingSpeed <- function(inputId, session = getDefaultReactiveDomain()) {
+  session$sendInputMessage("typing", TRUE)
+}
+
 ui <- fluidPage(
   # textAreaInput("typing", "Type here..."),
   typingSpeedInput("typing", "Type here..."),
@@ -31,7 +35,7 @@ server <- function(input, output, session) {
   output$debug <- renderPrint(input$typing)
 
   observeEvent(input$reset, {
-    session$sendInputMessage("typing", TRUE)
+    resetTypingSpeed("typing")
   })
 }
 

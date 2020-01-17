@@ -473,3 +473,9 @@ to send `typing` a `TRUE`
 whenever the button is clicked.
 
 `r github_sha_link("269e4ebdc48a66ecf7466192076c4fa259582cc6")`
+
+Once you get that working,
+refactor it into a `resetTypingSpeed()` function.
+
+This function should take an `inputId` and a `session` object.
+Use `shiny::getDefaultReactiveDomain()` for the default `session` value.
