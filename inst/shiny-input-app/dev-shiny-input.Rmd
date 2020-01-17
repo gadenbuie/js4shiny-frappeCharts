@@ -6,7 +6,7 @@ output: github_document
 knitr::opts_chunk$set(eval = FALSE)
 
 github_sha_link <- function(sha) {
-  glue::glue("![{sha}](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/{sha})")
+  glue::glue("[{sha}](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/{sha})")
 }
 ```
 
@@ -22,8 +22,6 @@ and use a Frappe Chart line chart
 to show their speed over time as they type.
 
 ## Setup a folder for our app inside the frappeCharts package
-
-`r github_sha_link("63174e128861b0dbc9d77c2e35ad88e1853aa0be")`
 
 Create the directory `inst/shiny-input-app` and add `app.R` and `typing.js`.
 
