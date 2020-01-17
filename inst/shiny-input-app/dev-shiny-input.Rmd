@@ -439,3 +439,18 @@ How does the app report the initial typing speed rates?
 
 Add another `if` statement to continue to return `null`
 until there are at least 3 words in the text box.
+
+### Your Turn: Find a rate policy balance
+
+At this point, 
+we are streaming values straight from the browser to the server.
+This is probably a bit much.
+
+Change `callback()` to `callback(true)` in `subscribe()`.
+
+Try various settings of
+
+- `policy`: `debounce`, `throttle` or `direct`.
+
+Find a good delay rate.
+

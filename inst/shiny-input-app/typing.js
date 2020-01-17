@@ -68,13 +68,13 @@ $.extend(typingSpeed, {
       // If using callback(true) the rate policy applies,
       // for example if you need to throttle or debounce
       // the values being sent back to the server.
-      callback();
+      callback(true);
     });
   },
   getRatePolicy: function() {
     return {
-      policy: 'debounce', // 'debounce', 'throttle' or 'direct' (default)
-      delay: 100 // milliseconds for debounce or throttle
+      policy: 'throttle', // 'debounce', 'throttle' or 'direct' (default)
+      delay: 1000 // milliseconds for debounce or throttle
     };
   },
   unsubscribe: function(el) {
