@@ -332,4 +332,7 @@ Update `.getValue()` to
 
 1. Return the number of characters the user has typed (`r github_sha_link("b3958d5e3f60fbac3a0100673696bd413a276fb4")`)
 
-1. Return the number of words the user has entered
+1. Return the number of words the user has entered (`r github_sha_link("e3fa485bb60853e391302289213d3cd5f0846b3e")`)
+
+1. Create variables for both number of characters and words and return both
+   in an object
