@@ -23,7 +23,7 @@ to show their speed over time as they type.
 
 ## Setup a folder for our app inside the frappeCharts package
 
-`r github_sha_link("2188781657884a743c2c4f94dc1fa7755a7de261")`
+`r github_sha_link("113340074c3af9c2cdf46cd7787829d4ec56bfcf")`
 
 Create the directory `inst/shiny-input-app` and add `app.R` and `typing.js`.
 
@@ -34,6 +34,8 @@ file.create("inst/shiny-input-app/typing.js")
 ```
 
 ## Create a basic Shiny app with a typing area
+
+`r github_sha_link("ff3a962f7e6d16a75ebdb620aac0fdfc9949086e")`
 
 We'll start with typical Shiny inputs.
 
@@ -53,3 +55,52 @@ shinyApp(ui, server)
 ```
 
 Run this app and type in the box.
+
+## Create our own typingSpeedInput()
+
+Use Shiny's `textAreaInput()` to get the template 
+for our own `typingSpeedInput()`
+
+```{r, eval=TRUE}
+shiny_text_input <- shiny::textAreaInput(
+  "INPUT", "LABEL", placeholder = "PLACEHOLDER"
+)
+cat(format(shiny_text_input))
+```
+
+
+```{r}
+typingSpeedInput <- function(inputId, label, placeholder = NULL) {
+  .label <- label
+  htmltools::withTags(
+    div(
+      class = "form-group typing-speed",
+      label(class = "control-label", `for` = inputId, .label),
+      textarea(id = inputId, class = "form-control", placeholder = placeholder)
+    )
+  )
+}
+```
+
+Two points:
+
+1. Notice that I used `htmltools::withTags()`,
+   which makes it easier to write multiple tags at once.
+   But it has the downside of masking the `label` argument of `typingSpeedInput()`.
+   Hence, the first line `.label <- label`.
+
+1. I added `.typing-speed` to our parent container so that we can
+   find or style our custom input.
+   
+Replace the `textAreaInput()` with our new `typingSpeedInput()` and run the app.
+It works the same!
+Wait, why?
+
+```{r}
+ui <- fluidPage(
+  # textAreaInput("typing", "Type here..."),
+  typingSpeedInput("typing", "Type here..."),
+  verbatimTextOutput("debug")
+)
+```
+
