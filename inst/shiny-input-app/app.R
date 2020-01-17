@@ -57,7 +57,7 @@ server <- function(input, output, session) {
 
   output$chart_typing_speed <- frappeCharts::renderFrappeChart({
     frappeCharts::frappeChart(
-      data.frame(time = wpm$time, wpm = wpm$wpm),
+      data.frame(time = 0, wpm = 0),
       type = "line",
       title = "Your Typing Speed",
       is_navigable = FALSE,
@@ -66,6 +66,12 @@ server <- function(input, output, session) {
     )
   })
 
+  observeEvent(wpm$time, {
+    frappeCharts::updateFrappeChart(
+      inputId = "chart_typing_speed",
+      data = data.frame(time = wpm$time, wpm =  wpm$wpm)
+    )
+  })
 }
 
 shinyApp(ui, server)

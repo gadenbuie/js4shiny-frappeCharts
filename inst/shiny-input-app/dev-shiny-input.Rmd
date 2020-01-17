@@ -505,6 +505,10 @@ Also, update the `debug` output to monitor `input$typing_reset` as well.
 
 ## Use our frappeChart widget to show speed over time
 
+### First pass
+
+`r github_sha_link("fe55bf588400f8586472b1050c0da1b931bad1c3")`
+
 We're going to drop-in our `frappeChart` package to add a dynamic plot
 showing typing speed over time.
 
@@ -558,6 +562,35 @@ output$chart_typing_speed <- frappeCharts::renderFrappeChart({
     is_navigable = FALSE,
     axisOptions = list(xIsSeries = TRUE),
     lineOptions = list(regionFill = TRUE)
+  )
+})
+```
+
+### Don't redraw: Use the update method we made for frappeCharts
+
+Replace the initial `frappeChart()` with a simple placeholder.
+
+```r
+# server
+output$chart_typing_speed <- frappeCharts::renderFrappeChart({
+  frappeCharts::frappeChart(
+    data.frame(time = 0, wpm = 0),
+    type = "line",
+    title = "Your Typing Speed",
+    is_navigable = FALSE,
+    axisOptions = list(xIsSeries = TRUE),
+    lineOptions = list(regionFill = TRUE)
+  )
+})
+```
+
+and use the `updateFrappeChart()` function to update the chart in place.
+
+```r
+observeEvent(wpm$time, {
+  frappeCharts::updateFrappeChart(
+    inputId = "chart_typing_speed",
+    data = data.frame(time = wpm$time, wpm =  wpm$wpm)
   )
 })
 ```
