@@ -32,7 +32,9 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-  output$debug <- renderPrint(input$typing)
+  output$debug <- renderPrint({
+    str(list(typing = input$typing, typing_reset = input$typing_reset))
+  })
 
   observeEvent(input$reset, {
     resetTypingSpeed("typing")

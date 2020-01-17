@@ -22,6 +22,7 @@ $.extend(typingSpeed, {
 
     if (nchar === 0) {
       this._timing = null
+      Shiny.setInputValue(el.id + '_reset', Date.now())
       return null
     }
     if (!this._timing && nchar > 0) {

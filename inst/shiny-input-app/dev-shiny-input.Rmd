@@ -479,3 +479,24 @@ refactor it into a `resetTypingSpeed()` function.
 
 This function should take an `inputId` and a `session` object.
 Use `shiny::getDefaultReactiveDomain()` for the default `session` value.
+
+`r github_sha_link("644a8b6c2e8f3719bda89cbd7801a90401c9eadb")`
+
+### Final Step: Extra inputs on the side
+
+In our final app,
+we're going to want to know on the Shiny server side
+when the user has reset the typing input.
+We can watch for the typing speed input to be `NULL`,
+but ultimately it's a bit of a hassle 
+to turn `is.null()`/`!is.null()` into an event.
+
+It will be easier for us if we can simply
+send an `{inputId}_reset` event to the server
+when the input has changed.
+
+Try adding a `Shiny.setInputValue()` 
+that sends the current time
+to the input ID `{inputId}_reset`
+when the `this._timing` property is reset.
+Also, update the `debug` output to monitor `input$typing_reset` as well.
