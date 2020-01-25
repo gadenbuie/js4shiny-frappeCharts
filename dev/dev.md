@@ -590,123 +590,144 @@ chart.update(data)
 
 where `data` is the `data` part of the initial options object.
 
-To make this work we will:
+Let’s make this work…
 
-1.  refactor the JS-side data processing code ([changelog:
-    b19e33](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/b19e33af8fdca579a8578bcd7a39c6d1e43fb32c)
-    
-      - Create a `prepareChartData()` function from the code we wrote
-        for `renderValue()`. The goal is that this will let us use the
-        function in multiple places.
+### Refactor the JS-side data processing code
 
-2.  make the created `chart` object available outside `renderValue()`
-    ([changelog:
-    d11459](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/d114592668ca63f06f593f4f247432eec218894b)
+[changelog:
+b19e33](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/b19e33af8fdca579a8578bcd7a39c6d1e43fb32c)
 
-3.  bind the factory function context to `el` as `widget` ([changelog:
-    f0a3bf](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/f0a3bf9fd5e60cda9b2b7ace004f360c36bf6610)
-    
-      - Demo this by opening a rendered widget and showing `widget` as
-        attached to the div
+  - Create a `prepareChartData()` function from the code we wrote for
+    `renderValue()`. The goal is that this will let us use the function
+    in multiple places.
 
-4.  expose `chart` with a `chart()` method ([changelog:
-    f0a3bf](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/f0a3bf9fd5e60cda9b2b7ace004f360c36bf6610)
-    
-    1.  Demo by finding widget div and running
-        
-            let c = $0.widget.chart()
-            c.addDataPoint(2017, [2500, 1500])
-    
-    2.  Now, if nothing else, the `chart` object is accessible so others
-        can use or extend it.
+#### Make `chart` generally available
 
-5.  Create an update method that takes new data and updates an existing
-    chart.
-    ([changelog: 5da4b6](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/5da4b68b5f60d8e6ee17cc8c4a009121539a2653)
-    
-    Demo with `app.R`
-    
-    ``` js
-    let el = document.getElementById('chart')
-    el.widget.update({x: ['A', 'B', 'C', 'D'], Frequency: [1, 2, 3, 4]})
-    ```
-    
-    Try with various values. You can increase the number of data points
-    but you can’t add or change the series.
+[changelog:
+d11459](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/d114592668ca63f06f593f4f247432eec218894b)
 
-6.  Add a custom message handler that dependes on
-    `HTMLWidgets.shinyMode`.
-    ([changelog: 5da4b6](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/5da4b68b5f60d8e6ee17cc8c4a009121539a2653)
+Make the created `chart` object available outside `renderValue()`
+
+#### Expose the context inside the factory function to the world (and yourself)
+
+[changelog:
+f0a3bf](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/f0a3bf9fd5e60cda9b2b7ace004f360c36bf6610)
+
+  - bind the factory function context to `el` as `widget`
+  - Demo this by opening a rendered widget and showing `widget` as
+    attached to the div
+
+#### Expose `chart` with a `chart()` method
+
+[changelog:
+f0a3bf](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/f0a3bf9fd5e60cda9b2b7ace004f360c36bf6610)
+
+Add a chart method to the widget object so that we can get to the
+current chart.
+
+1.  Demo by finding widget div and running
     
-    ``` js
-    // after factory function
-    if (HTMLWidgets.shinyMode) {
-      Shiny.addCustomMessageHandler('frappeCharts:update', function({id, data}) {
-        let el = document.getElementById(id)
-        el.widget.update(data)
-      })
+        let c = $0.widget.chart()
+        c.addDataPoint(2017, [2500, 1500])
+
+2.  Now, if nothing else, the `chart` object is accessible so others can
+    use or extend it.
+
+#### Create an update method that takes new data and updates an existing chart
+
+[changelog: 5da4b6](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/5da4b68b5f60d8e6ee17cc8c4a009121539a2653)
+
+Demo with `app.R`
+
+``` js
+let el = document.getElementById('chart')
+el.widget.update({x: ['A', 'B', 'C', 'D'], Frequency: [1, 2, 3, 4]})
+```
+
+Try with various values. You can increase the number of data points but
+you can’t add or change the series.
+
+#### Add a custom message handler that dependes on `HTMLWidgets.shinyMode`
+
+[changelog: 5da4b6](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/5da4b68b5f60d8e6ee17cc8c4a009121539a2653)
+
+``` js
+// after factory function
+if (HTMLWidgets.shinyMode) {
+  Shiny.addCustomMessageHandler('frappeCharts:update', function({id, data}) {
+    let el = document.getElementById(id)
+    el.widget.update(data)
+  })
+}
+```
+
+Restructure the app code so that the chart initializes with flat data
+(0.5). Use `session$sendCustomMessage` to trigger the update.
+
+Note that the JS function above takes `id` and `data` using
+destructuring. It’s easy to write `function(id, data)` but this won’t
+work because the handler can only take one argument.
+
+Demo the app, now updates are fast\!
+
+#### Write a user-friendly wrapper around `sendCustomMessage` called `updateFrappeChart()`
+
+[changelog: 4706d8](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/4706d89183aaa9a3721599ef13c6f7af4955808b)
+
+#### Now add an event listener to send chart navigation back to Shiny
+
+[changelog: 0b4f7e](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/0b4f7ea16f378ec5a53d81260c8f9056fabbcaba)
+
+Attach the event listener during `renderValue()` and watch for the
+`data-select` event. Use the `el.id` to create a new id, like `el.id +
+'_selected'`. Send back `index` and `values` from the event.
+
+Add `verbatimTextOutput('selected')` to show `input$chart_selected`.
+
+#### Return better values
+
+[changelog:
+e7fe0e](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/e7fe0e1d87977823e6a040434b33e6d5cdf8eac1)
+
+You would probably want to do some work for the user and return more
+meaningful values. We’ll probably just copy and paste this during the
+workshop, but here’s a potential method.
+
+This function basically reverses the chart processing and and returns a
+list that should be a dataframe.
+
+``` js
+if (HTMLWidgets.shinyMode && x.isNavigable) {
+el.addEventListener('data-select', function(ev) {
+  let {index, values} = ev
+  let chart = el.widget.chart()
+  let label = chart.data.labels[index]
+  let names = chart.data.datasets.map(d => d.name)
+  let data = values.reduce(function(acc, v, idx) {
+    acc[names[idx]] = v
+    return acc
+  }, {})
+  data[labelsName] = label
+  Shiny.setInputValue(el.id + '_selected', data)
+})
+}
+```
+
+#### Process the returned data for the user in Shiny
+
+[changelog: 000de6](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/000de60582f277e29983f6c5803de112ca1ade99)
+
+But now in Shiny it needs to go from a list to a data.frame. To do this
+we use `shiny::registerInputHandler()` in R and give the input event a
+type: `inputId_selected:frappeCharts-selected`.
+
+``` r
+.onLoad <- function(libname, pkgname) {
+  shiny::registerInputHandler(
+    type = "frappeCharts-selected",
+    fun = function(value, session, inputName) {
+      as.data.frame(value, stringsAsFactors = FALSE)
     }
-    ```
-    
-    Restructure the app code so that the chart initializes with flat
-    data (0.5). Use `session$sendCustomMessage` to trigger the update.
-    
-    Note that the JS function above takes `id` and `data` using
-    destructuring. It’s easy to write `function(id, data)` but this
-    won’t work because the handler can only take one argument.
-    
-    Demo the app, now updates are fast\!
-
-7.  Write a user-friendly wrapper around `sendCustomMessage` called
-    `updateFrappeChart()`
-    ([changelog: 4706d8](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/4706d89183aaa9a3721599ef13c6f7af4955808b)
-
-8.  Now add an event listener to send chart navigation back to Shiny
-    ([changelog: 0b4f7e](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/0b4f7ea16f378ec5a53d81260c8f9056fabbcaba)
-    
-    Attach the event listener during `renderValue()` and watch for the
-    `data-select` event. Use the `el.id` to create a new id, like `el.id
-    + '_selected'`. Send back `index` and `values` from the event.
-    
-    Add `verbatimTextOutput('selected')` to show `input$chart_selected`.
-
-9.  You would probably want to do some work for the user and return more
-    meaningful values. We won’t cover this in the workshop, but I’ve
-    demonstrated a potential method. ([changelog:
-    e7fe0e](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/e7fe0e1d87977823e6a040434b33e6d5cdf8eac1)
-    
-    This function basically reverses the chart processing and and
-    returns a list that should be a dataframe.
-    
-    ``` js
-    if (HTMLWidgets.shinyMode && x.isNavigable) {
-     el.addEventListener('data-select', function(ev) {
-       let {index, values} = ev
-       let chart = el.widget.chart()
-       let label = chart.data.labels[index]
-       let names = chart.data.datasets.map(d => d.name)
-       let data = values.reduce(function(acc, v, idx) {
-         acc[names[idx]] = v
-         return acc
-       }, {})
-       data[labelsName] = label
-       Shiny.setInputValue(el.id + '_selected', data)
-     })
-      }
-    ```
-
-10. But now in Shiny it needs to go from a list to a data.frame. To do
-    this we use `shiny::registerInputHandler()` in R and give the input
-    event a type: `inputId_selected:frappeCharts-selected`.
-    ([changelog: 000de6](https://github.com/gadenbuie/js4shiny-frappeCharts/commit/000de60582f277e29983f6c5803de112ca1ade99)
-    
-    ``` r
-    .onLoad <- function(libname, pkgname) {
-       shiny::registerInputHandler(
-         type = "frappeCharts-selected",
-         fun = function(value, session, inputName) {
-           as.data.frame(value, stringsAsFactors = FALSE)
-         }
-       )
-     }
-    ```
+  )
+}
+```
