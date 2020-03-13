@@ -1,4 +1,5 @@
 library(shiny)
+library(frappeCharts)
 
 options(scipen = 1e3)
 
@@ -28,7 +29,8 @@ ui <- fluidPage(
   # textAreaInput("typing", "Type here..."),
   typingSpeedInput("typing", "Type here..."),
   actionButton("reset", "Reset"),
-  verbatimTextOutput("debug")
+  frappeCharts::frappeChartOutput("chart_typing_speed")
+  # verbatimTextOutput("debug")
 )
 
 server <- function(input, output, session) {
@@ -39,6 +41,31 @@ server <- function(input, output, session) {
   observeEvent(input$reset, {
     resetTypingSpeed("typing")
   })
+
+  wpm <- reactiveValues(time = c(), wpm = c())
+
+  observeEvent(input$typing_reset, {
+    wpm$time <- c()
+    wpm$wpm <- c()
+  })
+
+  observeEvent(input$typing, {
+    req(input$typing)
+    wpm$time <- c(wpm$time, input$typing$time)
+    wpm$wpm <- c(wpm$wpm, input$typing$wpm)
+  })
+
+  output$chart_typing_speed <- frappeCharts::renderFrappeChart({
+    frappeCharts::frappeChart(
+      data.frame(time = wpm$time, wpm = wpm$wpm),
+      type = "line",
+      title = "Your Typing Speed",
+      is_navigable = FALSE,
+      axisOptions = list(xIsSeries = TRUE),
+      lineOptions = list(regionFill = TRUE)
+    )
+  })
+
 }
 
 shinyApp(ui, server)
