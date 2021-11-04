@@ -18,9 +18,9 @@ around the [Frappe Charts][frappe-charts] JavaScript library.
 
 The repository is itself a walk through of the project.
 Walk through the 
-[commit log](https://github.com/gadenbuie/js4shiny-frappeCharts/commits/master)
+[commit log](https://github.com/gadenbuie/js4shiny-frappeCharts/commits/main)
 or read through the 
-[dev journal](https://github.com/gadenbuie/js4shiny-frappeCharts/blob/master/dev/dev.md)
+[dev journal](https://github.com/gadenbuie/js4shiny-frappeCharts/blob/main/dev/dev.md)
 to explore the project and the changes made at each step of the process.
 
 ---
@@ -34,7 +34,7 @@ building a custom Shiny input:
 a `<textarea>` input that measures typing speed.
 At the end of the project,
 we incorporate the `frappeCharts` widget
-we built in the [main project](https://github.com/gadenbuie/js4shiny-frappeCharts/blob/master/dev/dev.md).
+we built in the [main project](https://github.com/gadenbuie/js4shiny-frappeCharts/blob/main/dev/dev.md).
 
 Walk through the 
 [commit log of the shiny-input branch](https://github.com/gadenbuie/js4shiny-frappeCharts/commits/shiny-input)
